@@ -12,7 +12,9 @@ Domain Path: /languages
 */
 
 // Load options
-require_once( dirname(__FILE__) . '/agg-as-options.php' );
+if ( is_admin() and current_user_can('manage_options')) {
+    require_once( dirname(__FILE__) . '/agg-as-options.php' );
+}
 
 // Load widget
 require_once( dirname(__FILE__) . '/agg-as-widget-meta.php' );
