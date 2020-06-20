@@ -1,38 +1,48 @@
 <?php
 /*
 Plugin Name: Aggregator Advanced Settings
+Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
 Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style to site theme, show site custom logo in login form, etc.
 Version:     1.0
 Author:      Miguel Mello
-Author URI:  https://www.linkedin.com/in/miguel-mello
+Author URI:  https://stackoverflow.com/users/7708220/miguel
 Requires at least: 5.3.2
 License:     GPL2
 Text Domain: agg-advanced-settings
 Domain Path: /languages
 */
 
-// Load options
-if ( is_admin() and current_user_can('manage_options')) {
-    require_once( dirname(__FILE__) . '/agg-as-options.php' );
+// Exit if accessed directly
+if (!defined('ABSPATH')){
+    exit;
 }
+
+// Load options
+function agg_as_init(){
+    $current_user = wp_get_current_user();
+    if (is_admin() && current_user_can('manage_options')){
+        require_once( dirname(__FILE__) . '/agg-as-options.php' );
+    }
+}
+add_action('init','agg_as_init');
 
 // Load widget
 require_once( dirname(__FILE__) . '/agg-as-widget-meta.php' );
 
 // Hide "Proudly powered by WordPress"
 if (get_option( 'agg_hide_powered' ) == 1) {
-    function agg_register_plugin_styles() {
+    function agg_as_register_plugin_styles() {
         wp_register_style( 'agg-advanced-settings', plugins_url( 'agg-advanced-settings/agg-advanced-settings.css' ) );
         wp_enqueue_style( 'agg-advanced-settings' );
     }
-    add_action( 'wp_enqueue_scripts', 'agg_register_plugin_styles' );
+    add_action( 'wp_enqueue_scripts', 'agg_as_register_plugin_styles' );
 }
 
 // Redirect non-admin users
 if (get_option( 'agg_hide_admin_bar' ) == 1) {
     $required_capability = 'activate_plugins';
     $redirect_to = get_option('home');
-    function no_admin_init() {      
+    function agg_as_no_admin_init() {      
         // We need the config vars inside the function
         global $required_capability, $redirect_to;      
         // Is this the admin interface?
@@ -55,28 +65,28 @@ if (get_option( 'agg_hide_admin_bar' ) == 1) {
         }       
     }
     // Add the action with maximum priority
-    add_action('init','no_admin_init',0);
+    add_action('init','agg_as_no_admin_init',0);
     
     // Hide admin bar
-    function remove_admin_bar() {
+    function agg_as_remove_admin_bar() {
         if (!current_user_can('administrator') && !is_admin()) {
           show_admin_bar(false);
         }
     }
-    add_action('after_setup_theme', 'remove_admin_bar');
+    add_action('after_setup_theme', 'agg_as_remove_admin_bar');
 }
 
 // Set login style
 if (get_option( 'agg_set_login_style' ) == 1) {
-    function set_login_stylesheet() {
+    function agg_as_set_login_stylesheet() {
         wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/style.css' );
     }
-    add_action( 'login_enqueue_scripts', 'set_login_stylesheet' );
+    add_action( 'login_enqueue_scripts', 'agg_as_set_login_stylesheet' );
 }
 
 // Show custom logo in login
 if (get_option( 'agg_show_site_logo' ) == 1) {
-    function custom_login_logo() {
+    function agg_as_custom_login_logo() {
         if ( has_custom_logo() ) {
             $image = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
             ?>
@@ -93,20 +103,21 @@ if (get_option( 'agg_show_site_logo' ) == 1) {
             <?php
         }
     }
-    add_action( 'login_head', 'custom_login_logo', 100 );
+    add_action( 'login_head', 'agg_as_custom_login_logo', 100 );
+    
     // Link site home url in login logo
-    function custom_login_url($url) {
+    function agg_as_custom_login_url($url) {
         return get_site_url();
     }
-    add_filter( 'login_headerurl', 'custom_login_url' );
+    add_filter( 'login_headerurl', 'agg_as_custom_login_url' );
 }
 
 // Remove wp title in login page
 if (get_option( 'agg_remove_title' ) == 1) {
-    function custom_login_title( $login_title ) {
+    function agg_as_custom_login_title( $login_title ) {
         return str_replace(array( ' &lsaquo;', ' &#8212; WordPress'), array( ' &bull;', ''),$login_title );
     }
-    add_filter( 'login_title', 'custom_login_title' );
+    add_filter( 'login_title', 'agg_as_custom_login_title' );
 }
 
 /* EOF */

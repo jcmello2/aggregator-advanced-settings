@@ -1,12 +1,12 @@
 <?php
 
 // create custom plugin settings menu
-function agg_menu() {
-	add_options_page( 'Aggregator Options', 'Advanced', 'manage_options', 'aggregator-options', 'agg_options' );
+function agg_as_menu() {
+	add_options_page( 'Aggregator Options', 'Advanced Settings', 'manage_options', 'aggregator-options', 'agg_as_options' );
 }
-add_action( 'admin_menu', 'agg_menu' );
+add_action( 'admin_menu', 'agg_as_menu' );
 
-function agg_options() {
+function agg_as_options() {
 	
 	//must check that the user has the required capability 
     if (!current_user_can('manage_options'))
@@ -76,7 +76,7 @@ function agg_options() {
 </tr>
 <tr>
 <th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt_name_1; ?>"><?php _e("Try to hide 'Powered by WordPress'", 'menu-agg' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt_name_1; ?>" value="1" <?php checked ('1',$opt_val_1); ?>><small><?php _e(" From the footer", 'menu-agg' ); ?></small></td>
+<td><input type="checkbox" name="<?php echo $opt_name_1; ?>" value="1" <?php checked ('1',$opt_val_1); ?>><?php _e(" From the footer", 'menu-agg' ); ?></td>
 </tr>
 <tr>
 <th scope="row"><label for="<?php echo $opt_name_2; ?>"><?php _e("Hide admin bar (and profile)", 'menu-agg' ); ?></label></th>
