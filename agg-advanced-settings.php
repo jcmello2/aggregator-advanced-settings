@@ -5,7 +5,6 @@ Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
 Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style to site theme, show site custom logo in login form, etc.
 Version:     1.0
 Author:      Miguel Mello
-Author URI:  https://stackoverflow.com/users/7708220/miguel
 Requires at least: 5.3.2
 License:     GPL2
 Text Domain: agg-advanced-settings
