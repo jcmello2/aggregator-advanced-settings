@@ -14,7 +14,7 @@ WordPress extra customization options with advanced settings.
 Aggregator Advanced Settings allows to remove all references to wordpress in the frontend, for a better customization experience.
 
 Major features in AAS include:
-* Try to hide 'Powered by WordPress' from the footer (It might not work depending on your theme).
+* Try to hide 'Powered by WordPress' from the footer.
 * Hide admin bar (and profile page) from non-admin users.
 * Set login page style to site current theme.
 * Replace WP logo in login page with site custom logo and site home link.
