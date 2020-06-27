@@ -2,7 +2,6 @@
 Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
-Stable Tag: 5.4.2
 Tested up to: 5.4.2
 Stable Tag: 1.1.0
 License: GPLv2 or later
