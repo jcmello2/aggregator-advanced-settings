@@ -47,10 +47,10 @@ parent::__construct(
 'agg_widget_meta', 
  
 // Widget name will appear in UI
-__('Aggregator Logint', 'agg_widget_domain'), 
+__('Aggregator Login', 'agg-advanced-settings'), 
  
 // Widget description
-array( 'description' => __( 'Register, Login, Logout', 'agg_widget_domain' ), ) 
+array( 'description' => __( 'Register, Login, Logout', 'agg-advanced-settings' ), ) 
 );
 }
  
@@ -84,7 +84,7 @@ if ( isset( $instance[ 'title' ] ) ) {
 $title = $instance[ 'title' ];
 }
 else {
-$title = __( 'New title', 'agg_widget_domain' );
+$title = __( 'New title', 'agg-advanced-settings' );
 }
 // Widget admin form
 ?>

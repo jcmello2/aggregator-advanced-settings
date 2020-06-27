@@ -2,8 +2,8 @@
 /*
 Plugin Name: Aggregator Advanced Settings
 Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
-Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style to site theme, show site custom logo in login form, etc.
-Version:     1.0.0
+Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style to site theme, show site custom logo in login form, portuguese translation, etc.
+Version:     1.1.0
 Author:      Miguel Mello
 Requires at least: 5.3.2
 License:     GPL2
@@ -16,9 +16,25 @@ if (!defined('ABSPATH')){
     exit;
 }
 
+class agg_advanced_settings {
+
+public function console_log( $data ){
+  echo '<script>';
+  echo 'console.log('. json_encode( $data ) .')';
+  echo '</script>';
+}
+
+} // End class agg_advanced_settings
+
+// Load plugin textdomain
+function agg_as_load_textdomain() {
+    load_plugin_textdomain( 'agg-advanced-settings', false, dirname( plugin_basename( __FILE__ ) ).'/languages/' );
+}
+add_action( 'init', 'agg_as_load_textdomain');
+  
 // Load options
 function agg_as_init(){
-    $agg_as_current_user = wp_get_current_user();
+    $current_user = wp_get_current_user();
     if (is_admin() && current_user_can('manage_options')){
         require_once( dirname(__FILE__) . '/agg-as-options.php' );
     }
@@ -39,11 +55,8 @@ if (get_option( 'agg_hide_powered' ) == 1) {
 
 // Redirect non-admin users
 if (get_option( 'agg_hide_admin_bar' ) == 1) {
-    $agg_as_required_capability = 'activate_plugins';
-    $agg_as_redirect_to = get_option('home');
     function agg_as_no_admin_init() {      
-        // We need the config vars inside the function
-        global $agg_as_required_capability, $agg_as_redirect_to;      
+        $redirect_to = get_option('home');
         // Is this the admin interface?
         if (
             // Look for the presence of /wp-admin/ in the url
@@ -56,10 +69,10 @@ if (get_option( 'agg_hide_admin_bar' ) == 1) {
             stripos($_SERVER['REQUEST_URI'],'admin-ajax.php') == false
         ) {         
             // Does the current user fail the required capability level?
-            if (!current_user_can($agg_as_required_capability)) {              
-                if ($agg_as_redirect_to == '') { $agg_as_redirect_to = get_option('home'); }              
+            if (!current_user_can('activate_plugins')) {              
+                if ($redirect_to == '') { $redirect_to = get_option('home'); }              
                 // Send a temporary redirect
-                wp_redirect($agg_as_redirect_to,302);              
+                wp_redirect($redirect_to,302);              
             }           
         }       
     }
@@ -76,9 +89,9 @@ if (get_option( 'agg_hide_admin_bar' ) == 1) {
 }
 
 // Set login style
-if (get_option( 'agg_set_login_style' ) == 1) {
+if (get_option( 'agg_set_login_style' ) !== '') {
     function agg_as_set_login_stylesheet() {
-        wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/style.css' );
+        wp_enqueue_style( 'custom-login', wp_get_theme(get_option( 'agg_set_login_style' ))->get_theme_root_uri() . '/' . wp_get_theme(get_option( 'agg_set_login_style' ))->get_stylesheet() . '/style.css' );
     }
     add_action( 'login_enqueue_scripts', 'agg_as_set_login_stylesheet' );
 }
@@ -87,10 +100,10 @@ if (get_option( 'agg_set_login_style' ) == 1) {
 if (get_option( 'agg_show_site_logo' ) == 1) {
     function agg_as_custom_login_logo() {
         if ( has_custom_logo() ) {
-            $agg_as_image = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
+            $image = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
             ?>
             <style type="text/css">
-                .login h1 a {background-image: url(<?php echo esc_url( $agg_as_image[0] ); ?>);}
+                .login h1 a {background-image: url(<?php echo esc_url( $image[0] ); ?>);}
                 #loginform {background-color:#FFFFFF;}
             </style>
             <?php
