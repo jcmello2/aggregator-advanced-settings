@@ -3,7 +3,7 @@ Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
 Tested up to: 5.4.2
-Stable Tag: 1.1.1
+Stable Tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,7 @@ Major features in AAS include:
 * Set login page style from a list of available themes.
 * Replace WP logo in login page with site custom logo and site home link.
 * Replace WP title in login page (removes 'WordPress' expression).
+* Remove navigation, back to home and/or privacy links in login page.
 * Register / Login widget with optional privacy policy link.
 * Portuguese translation (pt_PT).
 
@@ -37,7 +38,12 @@ Go to Settings > Advanced Settings and save options.
 
 == Changelog ==
 
-= 1.1.1 = Release Date - 02 July 2020
+= 1.1.2 = Release Date - 04 July 2020
+* Option 6: Hide login navigation links (Register | Lost your password?)
+* Option 7: Hide login back to blog link (← Back to Home)
+* Option 8: Hide login privacy policy page link
+
+= 1.1.1 = Release Date - 03 July 2020
 * Minor security and code improvements
 * New widget Option: Display privacy policy link
 

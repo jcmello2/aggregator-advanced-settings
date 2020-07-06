@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Aggregator Advanced Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-30 18:21+0000\n"
-"PO-Revision-Date: 2020-06-30 18:23+0000\n"
+"POT-Creation-Date: 2020-07-04 08:48+0000\n"
+"PO-Revision-Date: 2020-07-04 08:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: Português\n"
 "Language: pt_PT\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.4.0; wp-5.4.2"
 
-#: agg-advanced-settings.php:70
+#: agg-advanced-settings.php:84
 msgid "Settings"
 msgstr "Definições"
 
-#: agg-advanced-settings.php:144 agg-advanced-settings.php:149
+#: agg-advanced-settings.php:90 agg-advanced-settings.php:95
 msgid "Cheatin&#8217; huh?"
 msgstr "Cheatin&#8217; huh?"
 
@@ -43,70 +43,94 @@ msgstr "Novo título"
 msgid "Display privacy policy link"
 msgstr "Mostrar link para a política de privacidade "
 
-#: agg-as-options.php:5 agg-as-options.php:71
+#: agg-as-options.php:5 agg-as-options.php:76
 msgid "Advanced Settings"
 msgstr "Opções Avançadas"
 
-#: agg-as-options.php:63
+#: agg-as-options.php:68
 msgid "settings saved."
 msgstr "opções gravadas."
 
-#: agg-as-options.php:81
+#: agg-as-options.php:86
 msgid "General Options"
 msgstr "Opções Gerais"
 
-#: agg-as-options.php:84
+#: agg-as-options.php:89
 msgid "Try to hide 'Powered by WordPress' "
 msgstr "Tentar esconder 'Powered by WordPress'"
 
-#: agg-as-options.php:85
+#: agg-as-options.php:90 agg-as-options.php:137
 msgid " From the footer"
 msgstr " Do rodapé"
 
-#: agg-as-options.php:88
+#: agg-as-options.php:93
 msgid "Hide admin bar (and profile)"
 msgstr "Esconder a barra de administrador (e o perfil)"
 
-#: agg-as-options.php:89
+#: agg-as-options.php:94
 msgid " From non-admin users"
 msgstr " De utilizadores comuns"
 
-#: agg-as-options.php:92
+#: agg-as-options.php:97
 msgid "Login Options"
 msgstr "Opções de Login"
 
-#: agg-as-options.php:95
+#: agg-as-options.php:100
 msgid "Set login page style"
 msgstr "Definir estilo da página de login"
 
-#: agg-as-options.php:98
+#: agg-as-options.php:103
 msgid "Choose theme"
 msgstr "Selecione um tema"
 
-#: agg-as-options.php:109
-msgid "Replace WP logo in login page"
-msgstr "Substituir o logótipo do WordPress na página de login"
-
 #: agg-as-options.php:111
-msgid " With site custom logo and site home link"
-msgstr " Pelo logótipo do site com ligação à página inicial"
+msgid " Theme"
+msgstr " Tema"
 
-#: agg-as-options.php:113
+#: agg-as-options.php:114
+msgid "Replace WordPress logo"
+msgstr "Substituir o logo do WordPress"
+
+#: agg-as-options.php:116
+msgid " With site custom logo and site home link"
+msgstr " Pelo logo do site com ligação à página inicial"
+
+#: agg-as-options.php:118
 msgid " No custom logo was found but the WP logo was removed"
 msgstr " Nenhum logo personalizado foi encontrado mas o logo WP foi removido"
 
-#: agg-as-options.php:115
+#: agg-as-options.php:120
 msgid " No custom logo was found but the WP logo can be removed"
 msgstr ""
 " Nenhum logo personalizado foi encontrado mas o logo WP pode ser removido"
 
-#: agg-as-options.php:119
-msgid "Replace WP title in login page"
-msgstr "Substituir o título do WordPress na página de login"
+#: agg-as-options.php:124
+msgid "Replace WordPress title"
+msgstr "Substituir o título do WordPress"
 
-#: agg-as-options.php:120
+#: agg-as-options.php:125
 msgid " Remove 'WordPress' expression"
 msgstr " Remove a expressão 'WordPress' "
+
+#: agg-as-options.php:128
+msgid "Hide navigation links"
+msgstr "Ocultar os links de navegação"
+
+#: agg-as-options.php:129
+msgid " Remove 'Register | Lost your password?' links"
+msgstr "Remove os links 'Registar | Esqueceu-se da senha?'"
+
+#: agg-as-options.php:132
+msgid "Hide back to home link"
+msgstr "Ocultar o link de voltar ao início"
+
+#: agg-as-options.php:133
+msgid " Remove '← Back to Home' link"
+msgstr "Remove o link '← Voltar ao Início' "
+
+#: agg-as-options.php:136
+msgid "Hide privacy policy link"
+msgstr "Ocultar o link da política de privacidade"
 
 #. Name of the plugin
 msgid "Aggregator Advanced Settings"
@@ -115,11 +139,11 @@ msgstr "Aggregator Advanced Settings"
 #. Description of the plugin
 msgid ""
 "WordPress Extra Settings: hide admin bar from non-admin users, set login "
-"page style, show site custom logo in login form, etc."
+"page style and options, remove WordPress references in the frontend, etc."
 msgstr ""
 "Configurações extra do WordPress: ocultar a barra de administrador de "
-"utilizadores comuns, definir o estilo da página de login, mostrar o logotipo "
-"personalizado do site na página de login, etc."
+"utilizadores comuns, definir o estilo e as opções da página de login, "
+"remover as referências ao WordPress no frontend, etc."
 
 #. URI of the plugin
 msgid "https://github.com/jcmello2/aggregator-advanced-settings"

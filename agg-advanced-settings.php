@@ -2,8 +2,8 @@
 /*
 Plugin Name: Aggregator Advanced Settings
 Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
-Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style, show site custom logo in login form, etc.
-Version:     1.1.1
+Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style and options, remove WordPress references in the frontend, etc.
+Version:     1.1.2
 Author:      Miguel Mello
 Requires at least: 5.3.2
 Tested up to: 5.4.2
@@ -22,6 +22,7 @@ class Agg_Advanced_Settings {
     private static $_instance = null;
     
     public function __construct() {
+        
         // Add actions to make magic happen
         add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
         add_action( 'init', array( $this, 'load_plugin_options' ) );
@@ -46,10 +47,23 @@ class Agg_Advanced_Settings {
             add_action( 'login_head', array( $this, 'custom_login_logo' ), 100 );
             add_filter( 'login_headerurl', array( $this, 'custom_login_url' ) );
         }
-        // Option 5 -Remove wp title in login page
+        // Option 5 - Remove wp title in login page
         if (get_option( 'agg_remove_title' ) == 1) {
             add_filter( 'login_title', array( $this, 'custom_login_title' ) );
+        }
+        // Option 6 - Hide login navigation links
+        if (get_option( 'agg_hide_login_nav' ) == 1) {
+            add_action( 'login_head', array( $this,'hide_login_nav' ) );
+        }
+        // Option 7 - Hide login back to blog link
+        if (get_option( 'agg_hide_login_back' ) == 1) {
+            add_action( 'login_head', array( $this,'hide_login_back' ) );
         }    
+        // Option 8 - Hide login privacy policy page link 
+        if (get_option( 'agg_hide_login_privacy' ) == 1) {
+            add_action( 'login_head', array( $this,'hide_login_privacy' ) );
+        }
+        
      } // end function __construct
     
     // Load plugin textdomain
@@ -63,19 +77,37 @@ class Agg_Advanced_Settings {
         if (is_admin() && current_user_can('manage_options')){
             require_once( dirname(__FILE__) . '/agg-as-options.php' );
         }
-    }
+    } // end function load_plugin_options
     
     // Add plugin settings link
     public function add_action_links ( $links ) {
         $mylink = array( '<a href="' . admin_url( 'options-general.php?page=aggregator-options' ) . '">' . __('Settings','agg-advanced-settings') . '</a>', );
         return array_merge( $mylink, $links );
-    }
+    } // end function add_action_links
+    
+    // Prevent cloning
+    public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'agg-advanced-settings' ) );
+	} // end function __clone
+    
+    // Prevent unserializing instances of this class
+    public function __wakeup() {
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'agg-advanced-settings' ) );
+    } // end function __wakeup
+    
+    // Ensure that only one instance of this class is loaded and can be loaded
+    public static function instance() {
+        if( is_null( self::$_instance ) ) {
+          self::$_instance = new self();
+        }
+        return self::$_instance;
+    } // end function instance
     
     // Hide "Powered by WordPress"
     public function register_plugin_styles() {
         wp_register_style( 'agg-advanced-settings', plugins_url( 'aggregator-advanced-settings/agg-advanced-settings.css' ) );
         wp_enqueue_style( 'agg-advanced-settings' );
-    }
+    } // end function register_plugin_styles
     
     // Redirect non-admin users
     public function no_admin_init() {      
@@ -139,27 +171,23 @@ class Agg_Advanced_Settings {
         return str_replace(array( ' &lsaquo;', ' &#8212; WordPress'), array( ' &bull;', ''),$login_title );
     } // end function custom_login_title
     
-    // Prevent cloning
-    public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'agg-advanced-settings' ) );
-	} // end function __clone
+    // Hide login navigation links
+    public function hide_login_nav() {
+        ?><style>#nav{display:none}</style><?php
+    } // end function hide_login_nav
     
-    // Prevent unserializing instances of this class
-    public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'agg-advanced-settings' ) );
-    } // end function __wakeup
+    // Hide login back to blog link
+    public function hide_login_back() {
+        ?><style>#backtoblog{display:none}</style><?php
+    } // end function hide_login_back
     
-    // Ensure that only one instance of this class is loaded and can be loaded
-    public static function instance() {
-        if( is_null( self::$_instance ) ) {
-          self::$_instance = new self();
-        }
-        return self::$_instance;
-    } // end function instance
+    // Hide login privacy policy link
+    public function hide_login_privacy() {
+        ?><style>.privacy-policy-page-link{display:none}</style><?php
+    } // end function hide_login_ptivacy
     
 } // End class agg_advanced_settings
 
-//new Agg_Advanced_Settings();
 Agg_Advanced_Settings::instance();
 
 /* EOF */

@@ -22,24 +22,24 @@ function agg_as_options() {
       array ('name' => 'agg_hide_admin_bar', 'value' => 0),
       array ('name' => 'agg_set_login_style', 'value' => ''),
       array ('name' => 'agg_show_site_logo', 'value' => 0),
-      array ('name' => 'agg_remove_title', 'value' => 0)
+      array ('name' => 'agg_remove_title', 'value' => 0),
+      array ('name' => 'agg_hide_login_nav', 'value' => 0),
+      array ('name' => 'agg_hide_login_back', 'value' => 0),
+      array ('name' => 'agg_hide_login_privacy', 'value' => 0)
     );
+    
+    // update option 'agg_set_login_style' for backward compatibility
+    if ($opt[2]['value'] == "0") {
+      update_option( $opt[2]['name'], '' );
+    } else if ($opt[2]['value'] == "1") {
+      update_option( $opt[2]['name'], get_template() );
+    }
     
     // Read in existing option value from database
     foreach($opt as $key => $value) {
       $opt[$key]['value'] = get_option($value['name']);
     }
     unset($value);
-    
-    // update option 'agg_set_login_style' for backward compatibility
-    $i = 2;
-    if ($opt[$i]['value'] == "0") {
-      update_option( $opt[$i]['name'], '' );
-      $opt[$i]['value'] = '';
-    } else if ($opt[$i]['value'] == "1") {
-      update_option( $opt[$i]['name'], get_template() );
-      $opt[$i]['value'] = get_template();
-    }
     
     // See if the user has posted us some information
     // If they did, this hidden field will be set to 'Y'
@@ -108,9 +108,10 @@ function agg_as_options() {
   <?php
    } ?>
 </select>
+<?php _e(" Theme", 'agg-advanced-settings' ); ?>
 </tr>
 <tr>
-<th scope="row"><label for="<?php echo $opt[3]['name']; ?>"><?php _e("Replace WP logo in login page", 'agg-advanced-settings' ); ?></label></th>
+<th scope="row"><label for="<?php echo $opt[3]['name']; ?>"><?php _e("Replace WordPress logo", 'agg-advanced-settings' ); ?></label></th>
 <?php if (has_custom_logo()) { ?>
 <td><input type="checkbox" name="<?php echo $opt[3]['name']; ?>" value="1" <?php checked (1,$opt[3]['value']); ?>><?php _e(" With site custom logo and site home link", 'agg-advanced-settings' ); ?></td>
 <?php } elseif ($opt[3]['value'] == 1) { ?>
@@ -120,8 +121,20 @@ function agg_as_options() {
 <?php }?>
 </tr>
 <tr>
-<th scope="row"><label for="<?php echo $opt[4]['name']; ?>"><?php _e("Replace WP title in login page", 'agg-advanced-settings' ); ?></label></th>
+<th scope="row"><label for="<?php echo $opt[4]['name']; ?>"><?php _e("Replace WordPress title", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[4]['name']; ?>" value="1" <?php checked (1,$opt[4]['value']); ?>><?php _e(" Remove 'WordPress' expression", 'agg-advanced-settings' ); ?></td>
+</tr>
+<tr>
+<th scope="row"><label for="<?php echo $opt[5]['name']; ?>"><?php _e("Hide navigation links", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[5]['name']; ?>" value="1" <?php checked (1,$opt[5]['value']); ?>><?php _e(" Remove 'Register | Lost your password?' links", 'agg-advanced-settings' ); ?></td>
+</tr>
+<tr>
+<th scope="row"><label for="<?php echo $opt[6]['name']; ?>"><?php _e("Hide back to home link", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[6]['name']; ?>" value="1" <?php checked (1,$opt[6]['value']); ?>><?php _e(" Remove '← Back to Home' link", 'agg-advanced-settings' ); ?></td>
+</tr>
+<tr>
+<th scope="row"><label for="<?php echo $opt[7]['name']; ?>"><?php _e("Hide privacy policy link", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[7]['name']; ?>" value="1" <?php checked (1,$opt[7]['value']); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?></td>
 </tr>
 </table>
 <hr />
