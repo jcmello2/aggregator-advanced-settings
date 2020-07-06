@@ -8,7 +8,7 @@ add_action( 'admin_menu', 'agg_as_menu' );
 
 function agg_as_options() {
 	
-	//must check that the user has the required capability 
+	  //must check that the user has the required capability 
     if (!current_user_can('manage_options'))
     {
       wp_die( __( _e('You do not have sufficient permissions to access this page.', 'agg-advanced-settings' )));
@@ -17,26 +17,28 @@ function agg_as_options() {
     // variables for the fields and options names 
     $opt_form_name = 'form1';
     $hidden_field_name = 'agg_submit_hidden';
-    $opt_name_1 = 'agg_hide_powered';
-    $opt_name_2 = 'agg_hide_admin_bar';
-    $opt_name_3 = 'agg_set_login_style';
-    $opt_name_4 = 'agg_show_site_logo';
-    $opt_name_5 = 'agg_remove_title';
+    $opt = array (
+      array ('name' => 'agg_hide_powered', 'value' => 0),
+      array ('name' => 'agg_hide_admin_bar', 'value' => 0),
+      array ('name' => 'agg_set_login_style', 'value' => ''),
+      array ('name' => 'agg_show_site_logo', 'value' => 0),
+      array ('name' => 'agg_remove_title', 'value' => 0)
+    );
     
     // Read in existing option value from database
-    $opt_val_1 = get_option( $opt_name_1 );
-    $opt_val_2 = get_option( $opt_name_2 );
-    $opt_val_3 = get_option( $opt_name_3 );
-    $opt_val_4 = get_option( $opt_name_4 );
-    $opt_val_5 = get_option( $opt_name_5 );
+    foreach($opt as $key => $value) {
+      $opt[$key]['value'] = get_option($value['name']);
+    }
+    unset($value);
     
-    // update $opt_3 for backward compatibility
-    if ($opt_val_3 == '0') {
-      update_option( $opt_name_3, '' );
-      $opt_val_3 = '';
-    } else if ($opt_val_3 == '1') {
-      update_option( $opt_name_3, get_stylesheet() );
-      $opt_val_3 = get_template();
+    // update option 'agg_set_login_style' for backward compatibility
+    $i = 2;
+    if ($opt[$i]['value'] == "0") {
+      update_option( $opt[$i]['name'], '' );
+      $opt[$i]['value'] = '';
+    } else if ($opt[$i]['value'] == "1") {
+      update_option( $opt[$i]['name'], get_template() );
+      $opt[$i]['value'] = get_template();
     }
     
     // See if the user has posted us some information
@@ -47,19 +49,19 @@ function agg_as_options() {
         check_admin_referer('agg-as-update-options_' . $opt_form_name);
         
         // Read their posted value
-        (isset($_POST[ $opt_name_1 ]))?$opt_val_1 = 1:$opt_val_1 = 0;
-        (isset($_POST[ $opt_name_2 ]))?$opt_val_2 = 1:$opt_val_2 = 0;    
-        $opt_val_3 = $_POST[ $opt_name_3 ];
-        (isset($_POST[ $opt_name_4 ]))?$opt_val_4 = 1:$opt_val_4 = 0;
-        (isset($_POST[ $opt_name_5 ]))?$opt_val_5 = 1:$opt_val_5 = 0;
+        foreach( $opt as $key => $value) {
+          if (isset($_POST[ $value['name'] ])) {
+            $opt[$key]['value'] = $_POST[ $value['name'] ];
+          } else {
+            $opt[$key]['value'] = 0;
+          }
+        }
         
         // Save the posted value in the database
-        update_option( $opt_name_1, $opt_val_1 );
-        update_option( $opt_name_2, $opt_val_2 );
-        update_option( $opt_name_3, $opt_val_3 );
-        update_option( $opt_name_4, $opt_val_4 );
-        update_option( $opt_name_5, $opt_val_5 );
-
+        foreach( $opt as $value) {
+          update_option( $value['name'],$value['value'] );
+        }
+        
 // Put a "settings saved" message on the screen
 ?>
 
@@ -84,12 +86,12 @@ function agg_as_options() {
 <th scope="row"><label><h2><?php _e("General Options", 'agg-advanced-settings' ); ?></h2></label></th>
 </tr>
 <tr>
-<th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt_name_1; ?>"><?php _e("Try to hide 'Powered by WordPress' ", 'agg-advanced-settings' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt_name_1; ?>" value="1" <?php checked ('1',$opt_val_1); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?></td>
+<th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt[0]['name']; ?>"><?php _e("Try to hide 'Powered by WordPress' ", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[0]['name']; ?>" value="1" <?php checked (1,$opt[0]['value']); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?></td>
 </tr>
 <tr>
-<th scope="row"><label for="<?php echo $opt_name_2; ?>"><?php _e("Hide admin bar (and profile)", 'agg-advanced-settings' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt_name_2; ?>" value="1" <?php checked ('1',$opt_val_2); ?>><?php _e(" From non-admin users", 'agg-advanced-settings' ); ?></td>
+<th scope="row"><label for="<?php echo $opt[1]['name']; ?>"><?php _e("Hide admin bar (and profile)", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[1]['name']; ?>" value="1" <?php checked (1,$opt[1]['value']); ?>><?php _e(" From non-admin users", 'agg-advanced-settings' ); ?></td>
 </tr>
 <tr>
 <th scope="row"><label><h2><?php _e("Login Options", 'agg-advanced-settings' ); ?></h2></label></th>
@@ -97,30 +99,31 @@ function agg_as_options() {
 <tr>
 <th scope="row"><label for="theme"><?php _e("Set login page style", 'agg-advanced-settings' ); ?></label></th>
 <td>
-<select name="<?php echo $opt_name_3; ?>" id="theme">
-  <option value=""<?= $opt_val_3=='' ? ' selected="selected"' : ''; ?>><?php _e("Choose theme", 'agg-advanced-settings' ); ?></option>
+<select name="<?php echo $opt[2]['name']; ?>" id="theme">
+  <option value=""<?php $opt[2]['value']=='' ? ' selected="selected"' : ''; ?>><?php _e("Choose theme", 'agg-advanced-settings' ); ?></option>
   <?php
-  
   $agg_as_themes = wp_get_themes();
-  
   foreach( $agg_as_themes as $value) { ?>
-    <option value="<?php echo $value->__get('stylesheet') ?>"<?=$opt_val_3 == $value->__get('stylesheet') ? ' selected="selected"' : ''; ?>><?php echo $value->__get('name') ?></option>
+    <option value="<?php echo $value->__get('stylesheet') ?>"<?php echo $opt[2]['value'] == $value->__get('stylesheet') ? ' selected="selected"' : ''; ?>><?php echo $value->__get('name') ?></option>
   <?php
    } ?>
 </select>
-</td>
 </tr>
 <tr>
-<th scope="row"><label for="<?php echo $opt_name_4; ?>"><?php _e("Replace WP logo in login page", 'agg-advanced-settings' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt_name_4; ?>" value="1" <?php checked ('1',$opt_val_4); ?>><?php _e(" With site custom logo and site home link", 'agg-advanced-settings' ); ?></td>
+<th scope="row"><label for="<?php echo $opt[3]['name']; ?>"><?php _e("Replace WP logo in login page", 'agg-advanced-settings' ); ?></label></th>
+<?php if (has_custom_logo()) { ?>
+<td><input type="checkbox" name="<?php echo $opt[3]['name']; ?>" value="1" <?php checked (1,$opt[3]['value']); ?>><?php _e(" With site custom logo and site home link", 'agg-advanced-settings' ); ?></td>
+<?php } elseif ($opt[3]['value'] == 1) { ?>
+<td><input type="checkbox" name="<?php echo $opt[3]['name']; ?>" value="1" <?php checked (1,$opt[3]['value']); ?>><span style="color: #0000CD;"><?php _e(" No custom logo was found but the WP logo was removed", 'agg-advanced-settings' ); ?></span></td>
+<?php } elseif ($opt[3]['value'] == 0) { ?>
+<td><input type="checkbox" name="<?php echo $opt[3]['name']; ?>" value="1" <?php checked (1,$opt[3]['value']); ?>><span style="color: #0000CD;"><?php _e(" No custom logo was found but the WP logo can be removed", 'agg-advanced-settings' ); ?></span></td>
+<?php }?>
 </tr>
 <tr>
-<th scope="row"><label for="<?php echo $opt_name_5; ?>"><?php _e("Replace WP title in login page", 'agg-advanced-settings' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt_name_5; ?>" value="1" <?php checked ('1',$opt_val_5); ?>><?php _e(" Remove 'WordPress' expression", 'agg-advanced-settings' ); ?></td>
+<th scope="row"><label for="<?php echo $opt[4]['name']; ?>"><?php _e("Replace WP title in login page", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[4]['name']; ?>" value="1" <?php checked (1,$opt[4]['value']); ?>><?php _e(" Remove 'WordPress' expression", 'agg-advanced-settings' ); ?></td>
 </tr>
 </table>
-
-
 <hr />
 <p class="submit">
 <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
@@ -130,4 +133,5 @@ function agg_as_options() {
 
 <?php
 }
+/* EOF */
 ?>
