@@ -2,8 +2,8 @@
 Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
-Tested up to: 5.4.2
-Stable Tag: 1.1.3
+Tested up to: 5.5.1
+Stable Tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,8 @@ Aggregator Advanced Settings allows to remove all references to wordpress in the
 Major features in AAS include:
 * Try to hide 'Powered by WordPress' from the footer.
 * Hide admin bar (and profile page) from non-admin users.
+* Show all settings on the settings menu with preview option.
+* Disable RSS feeds (redirects to site home).
 * Set login page style from a list of available themes.
 * Replace WP logo in login page with site custom logo and site home link.
 * Replace WP title in login page (removes 'WordPress' expression).
@@ -37,6 +39,12 @@ Go to Settings > Advanced Settings and save options.
 2. Advanced Settings Options
 
 == Changelog ==
+
+= 1.1.4 = Release Date - 05 September 2020
+* Option 9: Show all settings on the settings menu with preview option
+* Option 10: Disable RSS feeds
+* Uninstall procedures: clean up plugin and user options
+* Options page tabs added (general, login) 
 
 = 1.1.3 = Release Date - 05 July 2020
 * Admin notices handling: shows only on AAS options + dismiss forever

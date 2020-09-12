@@ -2,7 +2,7 @@
 
 // create custom plugin settings menu
 function agg_as_menu() {
-	add_options_page( 'Aggregator Options', __("Advanced Settings",'agg-advanced-settings'), 'manage_options', 'aggregator-options', 'agg_as_options');
+	add_options_page( 'Aggregator Options', __("Advanced Settings",'agg-advanced-settings'), 'manage_options', 'aggregator-options', 'agg_as_options', 1);
 } // end function agg_as_menu
 add_action( 'admin_menu', 'agg_as_menu' );
 
@@ -14,6 +14,10 @@ function agg_as_options() {
       wp_die( __( _e('You do not have sufficient permissions to access this page.', 'agg-advanced-settings' )));
     }
     
+    //Get the active tab from the $_GET param
+    $default_tab = 'general';
+    $tab = isset($_GET['tab']) ? $_GET['tab'] : $default_tab;
+    
     // Show admin notices
     require_once( dirname(__FILE__) . '/agg-as-notice-handling.php' );
     $agg_notice = new Agg_Notice_Handling();
@@ -21,25 +25,23 @@ function agg_as_options() {
     // variables for the fields and options names 
     $opt_form_name = 'form1';
     $hidden_field_name = 'agg_submit_hidden';
-    $opt = array (
-      array ('name' => 'agg_hide_powered', 'value' => 0),
-      array ('name' => 'agg_hide_admin_bar', 'value' => 0),
-      array ('name' => 'agg_set_login_style', 'value' => ''),
-      array ('name' => 'agg_show_site_logo', 'value' => 0),
-      array ('name' => 'agg_remove_title', 'value' => 0),
-      array ('name' => 'agg_hide_login_nav', 'value' => 0),
-      array ('name' => 'agg_hide_login_back', 'value' => 0),
-      array ('name' => 'agg_hide_login_privacy', 'value' => 0)
-    );
-    
-    // update option 'agg_set_login_style' for backward compatibility
-    $i = 2;
-    if ($opt[$i]['value'] == "0") {
-      update_option( $opt[$i]['name'], '' );
-    } else if ($opt[$i]['value'] == "1") {
-      update_option( $opt[$i]['name'], get_template() );
+    if ($tab == 'general') { 
+      $opt = array (
+        array ('name' => 'agg_hide_powered', 'value' => 0),
+        array ('name' => 'agg_hide_admin_bar', 'value' => 0),
+        array ('name' => 'agg_show_all_settings', 'value' => 0),
+        array ('name' => 'agg_disable_rss_feeds', 'value' => 0)
+        );
+    } else if ($tab == 'login') {  
+      $opt = array (
+        array ('name' => 'agg_set_login_style', 'value' => ''),
+        array ('name' => 'agg_show_site_logo', 'value' => 0),
+        array ('name' => 'agg_remove_title', 'value' => 0),
+        array ('name' => 'agg_hide_login_nav', 'value' => 0),
+        array ('name' => 'agg_hide_login_back', 'value' => 0),
+        array ('name' => 'agg_hide_login_privacy', 'value' => 0)
+        );
     }
-    
     // Read in existing option value from database
     foreach($opt as $key => $value) {
       $opt[$key]['value'] = get_option($value['name']);
@@ -78,6 +80,7 @@ function agg_as_options() {
 
 <!-- Now display the settings editing screen -->
 <div class="wrap">
+<!-- Print the page title -->
 <h1><?php _e("Advanced Settings", 'agg-advanced-settings' ) ?></h1>
 
 <!-- settings form -->
@@ -85,14 +88,24 @@ function agg_as_options() {
 
 <?php 
 wp_nonce_field('agg-as-update-options_' . $opt_form_name); 
-$i = -1;
+$i = -1; 
 ?>
 
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
+
+<!-- Here are our tabs -->
+<nav class="nav-tab-wrapper">
+  <a href="?page=aggregator-options&tab=general" class="nav-tab <?php if($tab==='general'): ?>nav-tab-active<?php endif; ?>"><?php _e("General Options", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=login" class="nav-tab <?php if($tab==='login'):?>nav-tab-active<?php endif; ?>"><?php _e("Login Options", 'agg-advanced-settings' ); ?></a>
+</nav>
+
+<div class="tab-content">
+
+<!-- tab general -->
+    <?php switch($tab) :
+      case 'general': ?>
+    
 <table class="form-table" role="presentation">
-<tr>
-<th scope="row"><label><h2><?php _e("General Options", 'agg-advanced-settings' ); ?></h2></label></th>
-</tr>
 <tr>
 <th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Try to hide 'Powered by WordPress' ", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?></td>
@@ -102,8 +115,20 @@ $i = -1;
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From non-admin users", 'agg-advanced-settings' ); ?></td>
 </tr>
 <tr>
-<th scope="row"><label><h2><?php _e("Login Options", 'agg-advanced-settings' ); ?></h2></label></th>
+<th scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Show all settings", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" On the settings menu", 'agg-advanced-settings' ) ; echo " (<a href='" . admin_url() . "/options.php" . "'>" . __("Preview",'agg-advanced-settings') . "</a>)" ; ?></td>
 </tr>
+<tr>
+<th scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Disable RSS feeds", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" Redirects to site home", 'agg-advanced-settings' ) ; ?></td>
+</tr>
+</table>
+
+<!-- tab login -->
+    <?php break;
+      case 'login': ?>
+      
+<table class="form-table" role="presentation">
 <tr>
 <th scope="row"><label for="theme"><?php _e("Set login page style", 'agg-advanced-settings' ); ?></label></th>
 <td>
@@ -145,7 +170,11 @@ $i = -1;
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?></td>
 </tr>
 </table>
-<hr />
+    <?php break;
+    endswitch; ?>
+</div>
+<!-- end tab content -->
+
 <p class="submit">
 <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
 </p>

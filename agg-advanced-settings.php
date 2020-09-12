@@ -3,10 +3,10 @@
 Plugin Name: Aggregator Advanced Settings
 Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
 Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style and options, remove WordPress references in the frontend, etc.
-Version:     1.1.3
+Version:     1.1.4
 Author:      Miguel Mello
 Requires at least: 5.3.2
-Tested up to: 5.4.2
+Tested up to: 5.5.1
 License:     GPL2
 Text Domain: agg-advanced-settings
 Domain Path: /languages
@@ -31,9 +31,6 @@ class Agg_Advanced_Settings {
         // Load widget
         require_once( dirname(__FILE__) . '/agg-as-widget-meta.php' );
         
-        // Admin notice
-        //add_action( 'admin_notices', array( $this, 'admin_notice' ) );
-        
         // Option 1 - Hide "Powered by WordPress" 
         if (get_option( 'agg_hide_powered' ) == 1) {
             add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
@@ -45,33 +42,51 @@ class Agg_Advanced_Settings {
             add_action( 'after_setup_theme', array( $this, 'remove_admin_bar' ) );
         }    
         
-        // Option 3 - Set login style
+        // Option 3 - Show all settings
+        if (get_option( 'agg_show_all_settings' ) == 1) {
+            add_action('admin_menu', array( $this, 'show_all_settings'));
+        }
+        
+        // Option 4 - Disable RSS feeds
+        if (get_option( 'agg_disable_rss_feeds' ) == 1) {
+            add_action('do_feed', array( $this, 'disable_feed'), 1);
+            add_action('do_feed_rdf', array( $this, 'disable_feed'), 1);
+            add_action('do_feed_rss', array( $this, 'disable_feed'), 1);
+            add_action('do_feed_rss2', array( $this, 'disable_feed'), 1);
+            add_action('do_feed_atom', array( $this, 'disable_feed'), 1);
+            add_action('do_feed_rss2_comments', array( $this, 'disable_feed'), 1);
+            add_action('do_feed_atom_comments', array( $this, 'disable_feed'), 1);
+            remove_action( 'wp_head', array( $this, 'feed_links_extra'), 3 );
+            remove_action( 'wp_head', array( $this, 'feed_links'), 2 );
+        }
+        
+        // Option 5 - Set login style
         if (get_option( 'agg_set_login_style' ) !== '') {
             add_action( 'login_enqueue_scripts', array( $this, 'set_login_stylesheet' ) );
         }
         
-        // Option 4 - Show custom logo in login
+        // Option 6 - Show custom logo in login
         if (get_option( 'agg_show_site_logo' ) == 1) {
             add_action( 'login_head', array( $this, 'custom_login_logo' ), 100 );
             add_filter( 'login_headerurl', array( $this, 'custom_login_url' ) );
         }
         
-        // Option 5 - Remove wp title in login page
+        // Option 7 - Remove wp title in login page
         if (get_option( 'agg_remove_title' ) == 1) {
             add_filter( 'login_title', array( $this, 'custom_login_title' ) );
         }
         
-        // Option 6 - Hide login navigation links
+        // Option 8 - Hide login navigation links
         if (get_option( 'agg_hide_login_nav' ) == 1) {
             add_action( 'login_head', array( $this,'hide_login_nav' ) );
         }
         
-        // Option 7 - Hide login back to blog link
+        // Option 9 - Hide login back to blog link
         if (get_option( 'agg_hide_login_back' ) == 1) {
             add_action( 'login_head', array( $this,'hide_login_back' ) );
         }    
         
-        // Option 8 - Hide login privacy policy page link 
+        // Option 10 - Hide login privacy policy page link 
         if (get_option( 'agg_hide_login_privacy' ) == 1) {
             add_action( 'login_head', array( $this,'hide_login_privacy' ) );
         }
@@ -156,6 +171,18 @@ class Agg_Advanced_Settings {
           show_admin_bar(false);
         }
     } // end function remove_admin_bar
+    
+    // Show all settings    
+    public function show_all_settings() {
+        global $submenu;
+        $permalink = get_site_url() . '/wp-admin/options.php';
+        $submenu['options-general.php'][] = array( __("All Settings", 'agg-advanced-settings' ), 'manage_options', $permalink);
+    }  // end function Show all settings
+    
+    // Disable RSS feeds    
+    public function disable_feed() {
+        wp_redirect( home_url() ); 
+    }  // end function disable_feed
     
     // Set login style
     public function set_login_stylesheet() {
