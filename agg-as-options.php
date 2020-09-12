@@ -28,6 +28,8 @@ function agg_as_options() {
     if ($tab == 'general') { 
       $opt = array (
         array ('name' => 'agg_hide_powered', 'value' => 0),
+        array ('name' => 'agg_hide_creating', 'value' => 0),
+        array ('name' => 'agg_remove_version', 'value' => 0),
         array ('name' => 'agg_hide_admin_bar', 'value' => 0),
         array ('name' => 'agg_show_all_settings', 'value' => 0),
         array ('name' => 'agg_disable_rss_feeds', 'value' => 0)
@@ -95,8 +97,8 @@ $i = -1;
 
 <!-- Here are our tabs -->
 <nav class="nav-tab-wrapper">
-  <a href="?page=aggregator-options&tab=general" class="nav-tab <?php if($tab==='general'): ?>nav-tab-active<?php endif; ?>"><?php _e("General Options", 'agg-advanced-settings' ); ?></a>
-  <a href="?page=aggregator-options&tab=login" class="nav-tab <?php if($tab==='login'):?>nav-tab-active<?php endif; ?>"><?php _e("Login Options", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=general" class="nav-tab <?php if($tab==='general'): ?>nav-tab-active<?php endif; ?>"><i class="fas fa-cog"></i> <?php _e("General Options", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=login" class="nav-tab <?php if($tab==='login'):?>nav-tab-active<?php endif; ?>"><i class="fas fa-sign-in-alt"></i> <?php _e("Login Options", 'agg-advanced-settings' ); ?></a>
 </nav>
 
 <div class="tab-content">
@@ -108,7 +110,16 @@ $i = -1;
 <table class="form-table" role="presentation">
 <tr>
 <th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Try to hide 'Powered by WordPress' ", 'agg-advanced-settings' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?></td>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From the footer", 'agg-advanced-settings' ); ?> <div class="tooltip"><i class="fas fa-question-circle" style="color: #007cba"></i>
+<span class="tooltiptext"><?php _e("It might not work depending on your site theme. If it's not working, please report to our plugin support on your Dashboard", 'agg-advanced-settings' ); ?></span></div></td>
+</tr>
+<tr>
+<th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Hide 'Thank you for creating with WP'", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From the admin footer", 'agg-advanced-settings' ); ?></td>
+</tr>
+<tr>
+<th style="white-space: nowrap;" scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Remove WordPress version number", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>><?php _e(" From the html head source", 'agg-advanced-settings' ); ?></td>
 </tr>
 <tr>
 <th scope="row"><label for="<?php echo $opt[++$i]['name']; ?>"><?php _e("Hide admin bar (and profile)", 'agg-advanced-settings' ); ?></label></th>
@@ -176,7 +187,7 @@ $i = -1;
 <!-- end tab content -->
 
 <p class="submit">
-<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
+<button type="submit" name="Submit" class="button-primary"><i class="fas fa-save"></i> <?php esc_attr_e('Save Changes') ?></button>
 </p>
 </form>
 </div>

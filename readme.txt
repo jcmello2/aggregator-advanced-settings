@@ -3,7 +3,7 @@ Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
 Tested up to: 5.5.1
-Stable Tag: 1.1.4
+Stable Tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,13 @@ Go to Settings > Advanced Settings and save options.
 2. Advanced Settings Options
 
 == Changelog ==
+
+= 1.1.5 = Release Date - 12 September 2020
+* Option 11: Remove WordPress version number from the html head source
+* Option 12: hide 'Thank you for creating with WP' from the admin footer
+* Custom font awesome icons added
+* Contextual help icons added
+* Dashboard support panel added
 
 = 1.1.4 = Release Date - 05 September 2020
 * Option 9: Show all settings on the settings menu with preview option
