@@ -3,7 +3,7 @@ Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
 Tested up to: 5.5.1
-Stable Tag: 1.1.5
+Stable Tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,16 +11,20 @@ WordPress extra customization options with advanced settings.
 
 == Description ==
 
-Aggregator Advanced Settings allows to remove all references to wordpress in the frontend, for a better customization experience.
+Aggregator Advanced Settings shows additional WP options, for a better customization experience.
 
 Major features in AAS include:
 * Try to hide 'Powered by WordPress' from the footer.
+* Hide 'Thank you for creating with WP'from the admin footer.
+* Remove WordPress version number from the html head source.
 * Hide admin bar (and profile page) from non-admin users.
 * Show all settings on the settings menu with preview option.
-* Disable RSS feeds (redirects to site home).
+* Disable RSS feeds and search feature.
+* Enable shortcodes in custom HTML widgets.
+* Disable login by email (username only).
+* Custom login errors message (makes it a bit more secure).
 * Set login page style from a list of available themes.
-* Replace WP logo in login page with site custom logo and site home link.
-* Replace WP title in login page (removes 'WordPress' expression).
+* Replace WP logo (and title) in login page with site custom logo and site home link.
 * Remove navigation, back to home and/or privacy links in login page.
 * Register / Login widget with optional privacy policy link.
 * Portuguese translation (pt_PT).
@@ -36,9 +40,17 @@ Go to Settings > Advanced Settings and save options.
 == Screenshots ==
 
 1. Advanced Settings Menu
-2. Advanced Settings Options
+2. Advanced Settings General Options
+3. Advanced Settings Login Options
 
 == Changelog ==
+
+= 1.1.6 = Release Date - 14 September 2020
+* Option 13: Custom login errors message
+* Option 14: Disable login by email
+* Option 15: Disable search feature
+* Option 16: Enable shortcodes in custom HTML widgets
+* Options icons added (with status color)  
 
 = 1.1.5 = Release Date - 12 September 2020
 * Option 11: Remove WordPress version number from the html head source
