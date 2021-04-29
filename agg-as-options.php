@@ -36,7 +36,6 @@ function agg_as_options() {
         array ('name' => 'agg_disable_auto_updates', 'value' => 0),
         array ('name' => 'agg_disable_search', 'value' => 0),
         array ('name' => 'agg_disable_rss_feeds', 'value' => 0),
-        array ('name' => 'agg_disable_jpeg_compression', 'value' => 0),
         array ('name' => 'agg_enable_shortcode_widget', 'value' => 0)
         );
     } else if ($tab == 'admin') { 
@@ -62,12 +61,20 @@ function agg_as_options() {
         array ('name' => 'agg_reject_malicious_requests', 'value' => 0),
         array ('name' => 'agg_remove_version', 'value' => 0),
         array ('name' => 'agg_disable_xml_rpc', 'value' => 0),
-        array ('name' => 'agg_disable_file_editor', 'value' => 0)
+        array ('name' => 'agg_disable_file_editor', 'value' => 0),
+        array ('name' => 'agg_https_with_Non-Secure_Media', 'value' => 0),
+        array ('name' => 'agg_disable_links_from_comments', 'value' => 0)
         );
     } else if ($tab == 'performance') {
       $opt = array (  
         array ('name' => 'agg_disable_emoji', 'value' => 0),
         array ('name' => 'agg_disable_embed', 'value' => 0)
+        );
+    } else if ($tab == 'media') {
+      $opt = array (  
+        array ('name' => 'agg_disable_jpg_compression', 'value' => 0),
+        array ('name' => 'agg_enable_svg_files_upload', 'value' => 0),
+        array ('name' => 'agg_change_default_add_media_settings', 'value' => 0)
         );
     }
     
@@ -124,11 +131,12 @@ $i = -1;
 
 <!-- Here are our tabs -->
 <nav class="nav-tab-wrapper">
-  <a href="?page=aggregator-options&tab=general" class="nav-tab <?php if($tab==='general'): ?>nav-tab-active<?php endif; ?>" style="width: 15%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-cog"></i></span> <?php _e("General", 'agg-advanced-settings' ); ?></a>
-  <a href="?page=aggregator-options&tab=admin" class="nav-tab <?php if($tab==='admin'): ?>nav-tab-active<?php endif; ?>" style="width: 15%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-user-cog"></i></span> <?php _e("Admin", 'agg-advanced-settings' ); ?></a>
-  <a href="?page=aggregator-options&tab=login" class="nav-tab <?php if($tab==='login'):?>nav-tab-active<?php endif; ?>" style="width: 15%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-sign-in-alt"></i></span> <?php _e("Login", 'agg-advanced-settings' ); ?></a>
-  <a href="?page=aggregator-options&tab=security" class="nav-tab <?php if($tab==='security'):?>nav-tab-active<?php endif; ?>" style="width: 15%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-shield-alt"></i></span> <?php _e("Security", 'agg-advanced-settings' ); ?></a>
-  <a href="?page=aggregator-options&tab=performance" class="nav-tab <?php if($tab==='performance'):?>nav-tab-active<?php endif; ?>" style="width: 15%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-tachometer-alt"></i></span> <?php _e("Performance", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=general" class="nav-tab <?php if($tab==='general'): ?>nav-tab-active<?php endif; ?>" style="width: 10%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-cog"></i></span> <?php _e("General", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=admin" class="nav-tab <?php if($tab==='admin'): ?>nav-tab-active<?php endif; ?>" style="width: 10%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-user-cog"></i></span> <?php _e("Admin", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=login" class="nav-tab <?php if($tab==='login'):?>nav-tab-active<?php endif; ?>" style="width: 10%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-sign-in-alt"></i></span> <?php _e("Login", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=security" class="nav-tab <?php if($tab==='security'):?>nav-tab-active<?php endif; ?>" style="width: 10%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-shield-alt"></i></span> <?php _e("Security", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=performance" class="nav-tab <?php if($tab==='performance'):?>nav-tab-active<?php endif; ?>" style="width: 10%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-tachometer-alt"></i></span> <?php _e("Performance", 'agg-advanced-settings' ); ?></a>
+  <a href="?page=aggregator-options&tab=media" class="nav-tab <?php if($tab==='media'):?>nav-tab-active<?php endif; ?>" style="width: 10%; text-align: center; table-layout: fixed;"><span style="font-size: 16px"><i class="fas fa-photo-video"></i></span> <?php _e("Media", 'agg-advanced-settings' ); ?></a>
 </nav>
 <div class="tab-content">
 
@@ -138,7 +146,7 @@ $i = -1;
 <table class="form-table" role="presentation">
 <!-- option: Try to hide 'Powered by WordPress' -->
 <tr>
-<th scope="row">
+<th style="white-space: nowrap;" scope="row">
 <?php if ($opt[++$i]['value'] == 1) { ?>
 <div class="agg-tooltip">
 <i class="fab fa-wordpress-simple" style="color:<?php echo $colors[2]; ?>"></i>
@@ -169,15 +177,9 @@ $i = -1;
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Disable RSS feeds", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Redirect to site home", 'agg-advanced-settings' ) ; ?></td>
 </tr>
-<!-- option: Disable JPEG compression -->
-<tr>
-<th scope="row"><i class="fas fa-file-image" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
-<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Disable JPEG compression", 'agg-advanced-settings' ); ?></label></th>
-<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Keep original image size", 'agg-advanced-settings' ) ; ?></td>
-</tr>
 <!-- option: Enable shortcode widget -->
 <tr>
-<th style="white-space: nowrap;" scope="row"><i class="fab fa-html5" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<th scope="row"><i class="fab fa-html5" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Enable shortcodes in HTML widgets", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Activate in custom html widgets", 'agg-advanced-settings' ) ; ?></td>
 </tr>
@@ -188,13 +190,13 @@ $i = -1;
 <table class="form-table" role="presentation">
 <!-- option: Hide 'Thank you for creating with WP' -->
 <tr>
-<th style="white-space: nowrap;" scope="row"><i class="fab fa-wordpress-simple" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<th scope="row"><i class="fab fa-wordpress-simple" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
 <label for="<?php echo $opt[+$i]['name']; ?>"><?php _e("Hide 'Thank you for creating with WP'", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("From the admin footer", 'agg-advanced-settings' ); ?></td>
 </tr>
 <!-- option: Hide admin bar (and profile) -->
 <tr>
-<th scope="row"><i class="fas fa-users-cog" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<th style="white-space: nowrap;" scope="row"><i class="fas fa-users-cog" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Hide admin bar (and profile)", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("From non-admin users", 'agg-advanced-settings' ); ?></td>
 </tr>
@@ -217,7 +219,7 @@ $i = -1;
 <table class="form-table" role="presentation">
 <!-- option: Disable login by email -->
 <tr>
-<th style="white-space: nowrap;" scope="row">
+<th scope="row">
 <?php if ($opt[$i+1]['value'] == 1 && $opt[$i+2]['value'] == '') { ?>  
 <div class="agg-tooltip"><i class="fas fa-at" style="color:<?php echo $opt[++$i]['value'] == 1 ? $colors[2] : '#808080' ; ?>"></i>
 <span class="agg-tooltiptext"><?php _e("Works better together with custom errors message", 'agg-advanced-settings' ); ?></span>
@@ -282,7 +284,7 @@ $i = -1;
 </tr>
 <!-- option: Hide privacy policy link -->
 <tr>
-<th scope="row"><i class="fas fa-lock" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<th style="white-space: nowrap;" scope="row"><i class="fas fa-lock" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Hide privacy policy link", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("From the footer", 'agg-advanced-settings' ); ?></td>
 </tr>
@@ -315,6 +317,18 @@ $i = -1;
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Disable the file editor", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("For both themes and plugins (admin menu)", 'agg-advanced-settings' ); ?></td>
 </tr>    
+<!-- option: HTTPS with Non-Secure Media -->
+<tr>
+<th scope="row"><i class="fab fa-expeditedssl" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("HTTPS with Non-Secure Media", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Removes the message that some items on the page aren’t delivered securely", 'agg-advanced-settings' ); ?></td>
+</tr>
+<!-- option: Disable links from user comments -->
+<tr>
+<th style="white-space: nowrap;" scope="row"><i class="fas fa-unlink" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Disable links from user comments", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Prevents spamming, links in comments stay as plain text on the page.", 'agg-advanced-settings' ); ?></td>
+</tr>
 </table>
 <!-- tab performance -->
     <?php break;
@@ -322,7 +336,7 @@ $i = -1;
 <table class="form-table" role="presentation">
 <!-- option: Disable emoji -->
 <tr>
-<th scope="row">
+<th style="white-space: nowrap;" scope="row">
 <?php if ($opt[++$i]['value'] == 1) { ?>
 <div class="agg-tooltip">
 <i class="fas fa-smile" style="color:<?php echo $colors[2]; ?>"></i>
@@ -340,6 +354,30 @@ $i = -1;
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Disable embeds", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Deactivate easily embed videos, images, tweets, etc.", 'agg-advanced-settings' ); ?></td>
 </tr>    
+</table>
+<!-- tab media -->
+    <?php break;
+      case 'media': ?>
+<table class="form-table" role="presentation">
+<!-- option: Disable JPEG compression -->
+<tr>
+<th scope="row"><i class="fas fa-file-image" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Disable JPEG compression", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Keep original image size", 'agg-advanced-settings' ) ; ?></td>
+</tr>
+<!-- option: Allow svg files in media library -->
+<tr>
+<th style="white-space: nowrap;" scope="row"><i class="fas fa-image" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Allow SVG files in media library", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Through uploader", 'agg-advanced-settings' ) ; ?></td>
+</tr>
+<!-- option: Change default add media settings -->
+<tr>
+<th style="white-space: nowrap;" scope="row"><i class="fas fa-sliders-h" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Change default add media settings", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("‘align center’, ‘link type none’ and ‘default size full’", 'agg-advanced-settings' ) ; ?></td>
+</tr>
+
 </table>
     <?php break;
     endswitch; ?>

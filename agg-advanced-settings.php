@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Aggregator Advanced Settings
-Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
+Plugin URI: https://wordpress.org/plugins/aggregator-advanced-settings
 Description: WordPress Extra Settings: General, Login, Security, Performance, etc
-Version:     1.1.8
+Version:     1.1.9
 Author:      Miguel Mello
 Requires at least: 5.3.2
-Tested up to: 5.5.1
+Tested up to: 5.5.3
 License:     GPL2
 Text Domain: agg-advanced-settings
 Domain Path: /languages
@@ -68,11 +68,6 @@ class Agg_Advanced_Settings {
 			remove_action( 'wp_head', array( $this, 'feed_links' ), 2 );
 		}
 		
-		// Disable jpeg compression
-		if (get_option( 'agg_disable_jpeg_compression' ) == 1) {
-			add_filter( 'jpeg_quality', array( $this, 'smashing_jpeg_quality' ) );
-		}
-		
 		// Enable shortcodes in widgets
 		if (get_option( 'agg_enable_shortcode_widget' ) == 1) {
 			add_filter( 'widget_text', 'shortcode_unautop' );
@@ -101,6 +96,13 @@ class Agg_Advanced_Settings {
 			add_action( 'manage_posts_custom_column', array( $this, 'posts_custom_id_columns') , 5, 2);
 			add_filter( 'manage_pages_columns', array( $this, 'posts_columns_id' ), 5);
 			add_action( 'manage_pages_custom_column', array( $this, 'posts_custom_id_columns' ) , 5, 2);
+			// Determine ID column width
+			add_action('admin_head', 'custom_admin_styling');
+			function custom_admin_styling() {
+			echo '<style type="text/css">';
+			echo 'th#wps_post_id{width:50px;}';
+			echo '</style>';
+			}
 		}
 		
 		// Disable login by email
@@ -108,7 +110,7 @@ class Agg_Advanced_Settings {
 			remove_filter( 'authenticate', 'wp_authenticate_email_password', 20);
 		}
 				
-		// Custom login errors message
+		// Option Custom login errors message
 		if (get_option( 'agg_custom_errors_message' ) !== '') {
 			add_filter( 'login_errors', array( $this, 'custom_login_errors' ) );
 		}
@@ -164,6 +166,16 @@ class Agg_Advanced_Settings {
 			add_action( 'init', array( $this, 'disable_file_editor' ) );	
 		}
 		
+		// HTTPS with Non-Secure Media 
+		if (get_option( 'agg_https_with_Non-Secure_Media' ) == 1) {
+			add_action( 'init', array( $this, 'nocdn_on_ssl_page' ) );	
+		}
+		
+		// Disable links from comments
+		if (get_option( 'agg_disable_links_from_comments' ) == 1) {
+			remove_filter('comment_text', 'make_clickable', 9);
+		}
+		
 		// Disable emoji's
 		if (get_option( 'agg_disable_emoji' ) == 1) {
 			add_action( 'init', array( $this, 'disable_wp_emojicons' ) );
@@ -175,7 +187,22 @@ class Agg_Advanced_Settings {
 			add_action( 'init', array( $this, 'speed_stop_loading_wp_embed' ) );
 		}
 		
-	 } // end function __construct
+		// Disable jpeg compression
+		if (get_option( 'agg_disable_jpeg_compression' ) == 1) {
+			add_filter( 'jpeg_quality', array( $this, 'smashing_jpeg_quality' ) );
+		}
+		
+		// Enable SVG files upload
+		if (get_option( 'agg_enable_svg_files_upload' ) == 1) {
+			add_filter('upload_mimes', array( $this, 'cc_mime_types' ) );
+		}
+		
+		// Change default add media settings
+		if (get_option( 'agg_change_default_add_media_settings' ) == 1) {
+			add_action( 'after_setup_theme', array( $this, 'attachment_display_settings' ) );
+		}
+		
+	 } // end function __construct 
 	
 	// Load plugin textdomain
 	public function load_plugin_textdomain() {
@@ -274,10 +301,6 @@ class Agg_Advanced_Settings {
 	// Disable RSS feeds    
 	public function disable_feed() {
 		wp_redirect( home_url() ); 
-	}
-	
-	public function smashing_jpeg_quality() {
-		return 100;
 	}
 	
 	// Hide "Thank you for creating with WordPress"
@@ -500,7 +523,14 @@ class Agg_Advanced_Settings {
 	
 	// Disable file editor
 	public function disable_file_editor() {
-		define( 'DISALLOW_FILE_EDIT', true );
+		define('DISALLOW_FILE_EDIT', true);
+	}
+	
+	// HTTPS with Non-Secure Media
+	public function nocdn_on_ssl_page() {
+		if(array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == "on") {
+        	define('DONOTCDN', true);
+    	}
 	}
 	
 	// Disable Emoji    
@@ -539,7 +569,25 @@ class Agg_Advanced_Settings {
 	    if (!is_admin()) {
 	        wp_deregister_script('wp-embed');
 	    }
-	} 
+	}
+	
+	// Disable JPEG compression
+	public function smashing_jpeg_quality() {
+		return 100;
+	}
+	
+	// Allow SVG files upload
+	public function cc_mime_types($mimes) {
+		$mimes['svg'] = 'image/svg+xml';
+		return $mimes;
+	}
+	
+	// Change default add media settings
+	public function attachment_display_settings() {
+	        update_option( 'image_default_align', 'center' ); // left, center, right, none
+	        update_option( 'image_default_link_type', 'none' );
+	        update_option( 'image_default_size', 'full size' ); // thumbnail, medium, large, full size
+	}
 	
 } // End class Agg_Advanced_Settings
 
