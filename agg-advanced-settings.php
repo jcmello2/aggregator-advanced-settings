@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Aggregator Advanced Settings
-Plugin URI: https://wordpress.org/plugins/aggregator-advanced-settings
-Description: WordPress Extra Settings: General, Login, Security, Performance, etc
-Version:     1.1.9
+Plugin URI: https://github.com/jcmello2/aggregator-advanced-settings
+Description: WordPress Extra Settings: hide admin bar from non-admin users, set login page style and options, remove WordPress references in the frontend, etc.
+Version:     1.1.7
 Author:      Miguel Mello
 Requires at least: 5.3.2
-Tested up to: 5.5.3
+Tested up to: 5.5.1
 License:     GPL2
 Text Domain: agg-advanced-settings
 Domain Path: /languages
@@ -29,7 +29,7 @@ class Agg_Advanced_Settings {
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'add_action_links' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'custom_fa_css' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_styles' ) );
-		add_action( 'wp_dashboard_setup', array( $this, 'custom_dashboard_widgets' ) );
+		add_action('wp_dashboard_setup', array( $this, 'custom_dashboard_widgets' ) );
 		
 		// Load widget
 		require_once( dirname(__FILE__) . '/agg-as-widget-meta.php' );
@@ -39,13 +39,25 @@ class Agg_Advanced_Settings {
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		}
 		
-		// Option Disable automatic updates
-		if (get_option( 'agg_disable_auto_updates' ) == 1) {
-			add_filter( 'automatic_updater_disabled', '__return_true' );
-			// add_filter( 'auto_update_core', '__return_false' );
-			add_filter( 'auto_update_plugin', '__return_false' );
-			add_filter( 'auto_update_theme', '__return_false' );
-			add_filter( 'auto_update_translation', '__return_false' );
+		// Option Hide "Thank you for creating with WordPress" 
+		if (get_option( 'agg_hide_creating' ) == 1) {
+			add_filter('admin_footer_text', array( $this, 'remove_footer_admin' ) );
+		}
+		
+		// Option Remove WordPress version number 
+		if (get_option( 'agg_remove_version' ) == 1) {
+			add_filter('the_generator', array( $this, 'remove_version' ) );
+		}
+		
+		// Option Hide admin bar from non-admin users
+		if (get_option( 'agg_hide_admin_bar' ) == 1) {
+			add_action( 'init', array( $this, 'no_admin_init' ), 0 );
+			add_action( 'after_setup_theme', array( $this, 'remove_admin_bar' ) );
+		}    
+		
+		// Option Show all settings
+		if (get_option( 'agg_show_all_settings' ) == 1) {
+			add_action('admin_menu', array( $this, 'show_all_settings' ) );
 		}
 		
 		// Option Diasable search feature
@@ -70,39 +82,7 @@ class Agg_Advanced_Settings {
 		
 		// Enable shortcodes in widgets
 		if (get_option( 'agg_enable_shortcode_widget' ) == 1) {
-			add_filter( 'widget_text', 'shortcode_unautop' );
 			add_filter( 'widget_text', 'do_shortcode' );
-		}
-		
-		// Option Hide "Thank you for creating with WordPress" 
-		if (get_option( 'agg_hide_creating' ) == 1) {
-			add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin' ) );
-		}
-		
-		// Option Hide admin bar from non-admin users
-		if (get_option( 'agg_hide_admin_bar' ) == 1) {
-			add_action( 'init', array( $this, 'no_admin_init' ), 0 );
-			add_action( 'after_setup_theme', array( $this, 'remove_admin_bar' ) );
-		}    
-		
-		// Option Show all settings
-		if (get_option( 'agg_show_all_settings' ) == 1) {
-			add_action('admin_menu', array( $this, 'show_all_settings' ) );
-		}
-		
-		// Option Include post/page ID's in admin table
-		if (get_option( 'agg_include_ids' ) == 1) {
-			add_filter( 'manage_posts_columns', array( $this, 'posts_columns_id' ), 5);
-			add_action( 'manage_posts_custom_column', array( $this, 'posts_custom_id_columns') , 5, 2);
-			add_filter( 'manage_pages_columns', array( $this, 'posts_columns_id' ), 5);
-			add_action( 'manage_pages_custom_column', array( $this, 'posts_custom_id_columns' ) , 5, 2);
-			// Determine ID column width
-			add_action('admin_head', 'custom_admin_styling');
-			function custom_admin_styling() {
-			echo '<style type="text/css">';
-			echo 'th#wps_post_id{width:50px;}';
-			echo '</style>';
-			}
 		}
 		
 		// Disable login by email
@@ -110,7 +90,7 @@ class Agg_Advanced_Settings {
 			remove_filter( 'authenticate', 'wp_authenticate_email_password', 20);
 		}
 				
-		// Option Custom login errors message
+		// Custom login errors message
 		if (get_option( 'agg_custom_errors_message' ) !== '') {
 			add_filter( 'login_errors', array( $this, 'custom_login_errors' ) );
 		}
@@ -151,14 +131,9 @@ class Agg_Advanced_Settings {
 			add_action( 'init', array( $this, 'reject_malicious_requests' ) );
 		}
 		
-		// Option Remove WordPress version number 
-		if (get_option( 'agg_remove_version' ) == 1) {
-			add_filter( 'the_generator', array( $this, 'remove_version' ) );
-		}
-
 		// Option Disable XML-RPC 
 		if (get_option( 'agg_disable_xml_rpc' ) == 1) {
-			add_filter( 'xmlrpc_enabled', '__return_false' );
+			add_filter('xmlrpc_enabled', '__return_false');
 		}
 		
 		// Disable file editor 
@@ -166,43 +141,7 @@ class Agg_Advanced_Settings {
 			add_action( 'init', array( $this, 'disable_file_editor' ) );	
 		}
 		
-		// HTTPS with Non-Secure Media 
-		if (get_option( 'agg_https_with_Non-Secure_Media' ) == 1) {
-			add_action( 'init', array( $this, 'nocdn_on_ssl_page' ) );	
-		}
-		
-		// Disable links from comments
-		if (get_option( 'agg_disable_links_from_comments' ) == 1) {
-			remove_filter('comment_text', 'make_clickable', 9);
-		}
-		
-		// Disable emoji's
-		if (get_option( 'agg_disable_emoji' ) == 1) {
-			add_action( 'init', array( $this, 'disable_wp_emojicons' ) );
-			add_filter( 'emoji_svg_url', '__return_false' );
-		}
-		
-		// Disable embed
-		if (get_option( 'agg_disable_embed' ) == 1) {
-			add_action( 'init', array( $this, 'speed_stop_loading_wp_embed' ) );
-		}
-		
-		// Disable jpeg compression
-		if (get_option( 'agg_disable_jpeg_compression' ) == 1) {
-			add_filter( 'jpeg_quality', array( $this, 'smashing_jpeg_quality' ) );
-		}
-		
-		// Enable SVG files upload
-		if (get_option( 'agg_enable_svg_files_upload' ) == 1) {
-			add_filter('upload_mimes', array( $this, 'cc_mime_types' ) );
-		}
-		
-		// Change default add media settings
-		if (get_option( 'agg_change_default_add_media_settings' ) == 1) {
-			add_action( 'after_setup_theme', array( $this, 'attachment_display_settings' ) );
-		}
-		
-	 } // end function __construct 
+	 } // end function __construct
 	
 	// Load plugin textdomain
 	public function load_plugin_textdomain() {
@@ -276,36 +215,14 @@ class Agg_Advanced_Settings {
 		wp_enqueue_style( 'agg-advanced-settings' );
 	}
 	
-	// Disable search feature
-	public function filter_query( $query, $error = true ) {
-		if ( is_search() ) {
-			$query->is_search = false;
-			$query->query_vars['s'] = false;
-			$query->query['s'] = false;
-			// to error
-			if ( $error == true )
-				$query->is_404 = true;
-			}
-	}
-	
-	// Disable search form    
-	public function filter_search() {
-	   return null; 
-	}
-	
-	// Disable search widget
-	public function remove_search_widget() {
-		unregister_widget('WP_Widget_Search');
-	}
-	
-	// Disable RSS feeds    
-	public function disable_feed() {
-		wp_redirect( home_url() ); 
-	}
-	
 	// Hide "Thank you for creating with WordPress"
 	public function remove_footer_admin() {
 		echo '';
+	}
+	
+	// Remove WordPress version number
+	public function remove_version() {
+		return '';
 	}
 	
 	// Redirect non-admin users
@@ -345,16 +262,31 @@ class Agg_Advanced_Settings {
 		}
 	}
 	
-	// Include post/page ID's in admin table
-	public function posts_columns_id( $defaults ) {
-		$defaults['wps_post_id'] = __('ID');
-    	return $defaults;
+	// Disable search feature
+	public function filter_query( $query, $error = true ) {
+		if ( is_search() ) {
+			$query->is_search = false;
+			$query->query_vars['s'] = false;
+			$query->query['s'] = false;
+			// to error
+			if ( $error == true )
+				$query->is_404 = true;
+			}
 	}
 	
-	public function posts_custom_id_columns($column_name, $id){
-	    if($column_name === 'wps_post_id'){
-	        echo $id;
-	    }
+	// Disable search form    
+	public function filter_search() {
+	   return null; 
+	}
+	
+	// Disable search widget
+	public function remove_search_widget() {
+		unregister_widget('WP_Widget_Search');
+	}
+	
+	// Disable RSS feeds    
+	public function disable_feed() {
+		wp_redirect( home_url() ); 
 	}
 	
 	// Custom login errors message
@@ -516,77 +448,9 @@ class Agg_Advanced_Settings {
 		}
 	} // End function reject_malicious_requests
 	
-	// Remove WP version number
-	public function remove_version() {
-		return '';
-	}
-	
-	// Disable file editor
+	// Set user nicename to nickname
 	public function disable_file_editor() {
-		define('DISALLOW_FILE_EDIT', true);
-	}
-	
-	// HTTPS with Non-Secure Media
-	public function nocdn_on_ssl_page() {
-		if(array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == "on") {
-        	define('DONOTCDN', true);
-    	}
-	}
-	
-	// Disable Emoji    
-	public function disable_wp_emojicons() {
-		remove_action( 'admin_print_styles', 'print_emoji_styles' );
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-		add_filter( 'tiny_mce_plugins', array( $this, 'disable_emojicons_tinymce' ) );
-		add_filter( 'wp_resource_hints', array( $this, 'disable_emojis_remove_dns_prefetch'), 10, 2 );
-	}
-	
-	public function disable_emojicons_tinymce() {
-		global $plugins;
-		if ( is_array( $plugins ) ) {
-			return array_diff( $plugins, array( 'wpemoji' ) );
-		} else {
-			return array();
-		}
-	}
-	
-	public function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
-		if ( 'dns-prefetch' == $relation_type ) {
-			/** This filter is documented in wp-includes/formatting.php */
-			$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
-			$urls = array_diff( $urls, array( $emoji_svg_url ) );
-		}
-			return $urls;
-	}
-	
-	// Remove WP embed script
-	public function speed_stop_loading_wp_embed() {
-	    if (!is_admin()) {
-	        wp_deregister_script('wp-embed');
-	    }
-	}
-	
-	// Disable JPEG compression
-	public function smashing_jpeg_quality() {
-		return 100;
-	}
-	
-	// Allow SVG files upload
-	public function cc_mime_types($mimes) {
-		$mimes['svg'] = 'image/svg+xml';
-		return $mimes;
-	}
-	
-	// Change default add media settings
-	public function attachment_display_settings() {
-	        update_option( 'image_default_align', 'center' ); // left, center, right, none
-	        update_option( 'image_default_link_type', 'none' );
-	        update_option( 'image_default_size', 'full size' ); // thumbnail, medium, large, full size
+		define( 'DISALLOW_FILE_EDIT', true );
 	}
 	
 } // End class Agg_Advanced_Settings

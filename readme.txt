@@ -2,8 +2,8 @@
 Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
-Tested up to: 5.5.3
-Stable Tag: 1.1.9
+Tested up to: 5.5.1
+Stable Tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,31 +12,21 @@ WordPress extra customization options with advanced settings.
 == Description ==
 
 Aggregator Advanced Settings shows additional WP options, for a better customization experience.
-Options are organized in categories (tabs): General, Admim, Login, Security and Performance.
 
 Major features in AAS include:
-
-= General Options =
 * Try to hide 'Powered by WordPress' from the footer.
-* Disable auto updates, RSS feeds jpeg compression and search feature.
-
-= Admin Options =
+* Hide 'Thank you for creating with WP' from the admin footer.
+* Remove WordPress version number from the html head source.
 * Hide admin bar (and profile page) from non-admin users.
 * Show all settings on the settings menu with preview option.
-
-= Login Options =
+* Disable RSS feeds and search feature.
+* Enable shortcodes in custom HTML widgets.
+* Disable login by email (username only).
+* Custom login errors message (makes it a bit more secure).
 * Set login page style from a list of available themes.
-* Replace WP logo (and title) in login page with custom logo and home link.
-
-= Security Options =
-* Reject malicious URL (GET) requests.
-* Disable XML-RPC and the file editor (themes and plugin).
-
-= Performance Options =
-* Disable emoji and embed support
-
-= Other Features =
-* Simple register / login widget.
+* Replace WP logo (and title) in login page with site custom logo and site home link.
+* Remove navigation, back to home and/or privacy links in login page.
+* Register / Login widget with optional privacy policy link.
 * Portuguese translation (pt_PT).
 
 == Installation ==
@@ -55,21 +45,6 @@ Go to Settings > Advanced Settings and save options.
 4. Advanced Settings Security Options
 
 == Changelog ==
-
-= 1.1.9 = Release Date - 25 November 2020
-* Option 25: Allow svg files in media library
-* Option 26: HTTPS with Non-Secure Media
-* Option 27: Disable links from user comments
-* Option 28: Change default add media settings
-
-= 1.1.8 = Release Date - 27 October 2020
-* Options page performance tab added
-* Options page admin tab added
-* Option 20: Disable emoji support
-* Option 21: Include post/page ID's in admin table
-* Option 22: Disable automatic updates
-* Option 23: Disable jpeg compression
-* Option 24: Disable embed support
 
 = 1.1.7 = Release Date - 12 October 2020
 * Options page security tab added
