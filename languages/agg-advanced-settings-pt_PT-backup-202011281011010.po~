@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Aggregator Advanced Settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-25 07:28+0000\n"
-"PO-Revision-Date: 2020-11-28 10:11+0000\n"
+"PO-Revision-Date: 2020-11-28 10:05+0000\n"
 "Last-Translator: nickname\n"
 "Language-Team: Portuguese (Portugal)\n"
 "Language: pt_PT\n"
@@ -139,8 +139,10 @@ msgid "Enable shortcodes in HTML widgets"
 msgstr "Ativar shortcodes em widgets de HTML"
 
 #: agg-as-options.php:318
-msgid "For both themes and plugins (admin menu)"
-msgstr "Para temas e plug-ins (menu de administração)"
+msgid ""
+"For both themes and p\n"
+"<!-- option: Diasable Links from Comments -->lugins (admin menu)"
+msgstr ""
 
 #: agg-as-options.php:349
 msgid "From all content and prevent DNS lookup from TinyMCE editor"
@@ -190,13 +192,13 @@ msgstr "Ocultar os links de navegação"
 msgid "Hide privacy policy link"
 msgstr "Ocultar o link da política de privacidade"
 
-#: agg-as-options.php:323
+#: agg-as-options.php:324
 msgid "HTTPS with Non-Secure Media"
-msgstr "HTTPS com média não segura"
+msgstr ""
 
 #. URI of the plugin
 msgid "https://wordpress.org/plugins/aggregator-advanced-settings"
-msgstr "https://wordpress.org/plugins/aggregator-advanced-settings"
+msgstr ""
 
 #: agg-as-options.php:213
 msgid "In admin tables"
@@ -228,7 +230,7 @@ msgstr "Torne o seu login um pouco mais seguro"
 
 #: agg-as-options.php:139
 msgid "Media"
-msgstr "Media"
+msgstr ""
 
 #. Author of the plugin
 msgid "Miguel Mello"
@@ -266,8 +268,6 @@ msgstr "Autor do Plugin"
 #: agg-as-options.php:330
 msgid "Prevents spamming, links in comments stay as plain text on the page."
 msgstr ""
-"Previne spamming, links em comentários permanecem como texto simples na "
-"página."
 
 #: agg-as-options.php:207
 msgid "Preview"
@@ -309,12 +309,10 @@ msgstr "Remove o link '← Voltar ao Início' "
 msgid "Remove WordPress version"
 msgstr "Remover versão do WordPress"
 
-#: agg-as-options.php:324
+#: agg-as-options.php:325
 msgid ""
 "Removes the message that some items on the page aren’t delivered securely"
 msgstr ""
-"Remove a mensagem de que alguns itens da página não foram entregues com "
-"segurança"
 
 #: agg-as-options.php:258
 msgid "Replace WordPress logo"
@@ -354,7 +352,7 @@ msgstr "Tema"
 
 #: agg-as-options.php:372
 msgid "Through uploader"
-msgstr "Através do uploader"
+msgstr ""
 
 #: agg-as-options.php:158
 msgid "Try to hide 'Powered by WordPress'"
@@ -385,4 +383,4 @@ msgstr "Funciona melhor junto com mensagem de erros personalizada"
 
 #: agg-as-options.php:378
 msgid "‘align center’, ‘link type none’ and ‘default size full’"
-msgstr "‘Alinhar centro’, ‘tipo de link nenhum’ e ‘tamanho padrão completo’"
+msgstr ""
