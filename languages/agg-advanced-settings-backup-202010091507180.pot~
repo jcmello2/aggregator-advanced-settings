@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Aggregator Advanced Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-09 15:07+0000\n"
+"POT-Creation-Date: 2020-10-09 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -78,15 +78,15 @@ msgid "settings saved."
 msgstr ""
 
 #: agg-as-options.php:115
-msgid "General"
+msgid "General Options"
 msgstr ""
 
 #: agg-as-options.php:116
-msgid "Login"
+msgid "Login Options"
 msgstr ""
 
 #: agg-as-options.php:117
-msgid "Security"
+msgid "Security Options"
 msgstr ""
 
 #: agg-as-options.php:132
