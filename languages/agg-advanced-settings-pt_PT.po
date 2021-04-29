@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Aggregator Advanced Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-09 15:07+0000\n"
-"PO-Revision-Date: 2020-10-09 15:14+0000\n"
+"POT-Creation-Date: 2020-10-25 07:28+0000\n"
+"PO-Revision-Date: 2020-10-25 07:30+0000\n"
 "Last-Translator: nickname\n"
-"Language-Team: Português\n"
+"Language-Team: Portuguese (Portugal)\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -14,37 +14,37 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.4.3; wp-5.5.1"
 
-#: agg-advanced-settings.php:161
+#: agg-advanced-settings.php:195
 msgid "Settings"
 msgstr "Definições"
 
-#: agg-advanced-settings.php:167 agg-advanced-settings.php:172
+#: agg-advanced-settings.php:201 agg-advanced-settings.php:206
 msgid "Cheatin&#8217; huh?"
 msgstr "A fazer batota?"
 
-#: agg-advanced-settings.php:187 agg-as-notice-handling.php:18
+#: agg-advanced-settings.php:221 agg-as-notice-handling.php:18
 msgid "Missing options? Please send suggestions to"
 msgstr "Faltam opções? Por favor envie sugestões para o"
 
-#: agg-advanced-settings.php:187 agg-as-notice-handling.php:19
+#: agg-advanced-settings.php:221 agg-as-notice-handling.php:19
 msgid "Plugin Author"
 msgstr "Autor do Plugin"
 
-#: agg-advanced-settings.php:204
+#: agg-advanced-settings.php:238
 msgid "Aggregator Advanced Settings Support"
 msgstr "Suporte do Aggregator Advanced Settings"
 
-#: agg-advanced-settings.php:209
+#: agg-advanced-settings.php:243
 msgid ""
 "Welcome to Aggregator Advanced Settings. Need help? Contact the developer"
 msgstr ""
 "Bem Vindo ao Aggregator Advanced Settings. Precisa de ajuda? Contacte o autor"
 
-#: agg-advanced-settings.php:209
+#: agg-advanced-settings.php:243
 msgid "here"
 msgstr "aqui"
 
-#: agg-advanced-settings.php:261
+#: agg-advanced-settings.php:321
 msgid "All Settings"
 msgstr "Todas as Opções"
 
@@ -69,27 +69,35 @@ msgstr "Novo título"
 msgid "Display privacy policy link"
 msgstr "Mostrar link para a política de privacidade "
 
-#: agg-as-options.php:5 agg-as-options.php:101
+#: agg-as-options.php:5 agg-as-options.php:113
 msgid "Advanced Settings"
 msgstr "Opções Avançadas"
 
-#: agg-as-options.php:92
+#: agg-as-options.php:104
 msgid "settings saved."
 msgstr "opções gravadas."
 
-#: agg-as-options.php:115
+#: agg-as-options.php:127
 msgid "General"
 msgstr "Geral"
 
-#: agg-as-options.php:116
+#: agg-as-options.php:128
+msgid "Admin"
+msgstr "Admin"
+
+#: agg-as-options.php:129
 msgid "Login"
 msgstr "Login"
 
-#: agg-as-options.php:117
+#: agg-as-options.php:130
 msgid "Security"
 msgstr "Segurança"
 
-#: agg-as-options.php:132
+#: agg-as-options.php:131
+msgid "Performance"
+msgstr "Desempenho"
+
+#: agg-as-options.php:145
 msgid ""
 "It might not work depending on your site theme. If it's not working, please "
 "report to our plugin support on your Dashboard"
@@ -97,191 +105,238 @@ msgstr ""
 "Pode não funcionar dependendo do tema do seu site. Se não estiver a "
 "funcionar, informe ao nosso suporte do plug-ins no seu Painel"
 
-#: agg-as-options.php:137
+#: agg-as-options.php:150
 msgid "Try to hide 'Powered by WordPress'"
 msgstr "Tentar esconder 'Powered by WordPress'"
 
-#: agg-as-options.php:139 agg-as-options.php:260
+#: agg-as-options.php:152 agg-as-options.php:287
 msgid "From the footer"
 msgstr "Do rodapé"
 
-#: agg-as-options.php:144
-msgid "Hide 'Thank you for creating with WP'"
-msgstr "Esconder 'Obrigado por criar com o WP'"
-
-#: agg-as-options.php:145
-msgid "From the admin footer"
-msgstr "Do rodapé do administrador"
-
-#: agg-as-options.php:150
-msgid "Remove WordPress version"
-msgstr "Remover versão do WordPress"
-
-#: agg-as-options.php:151
-msgid "From the html head source"
-msgstr "Do cabeçalho de html na fonte"
-
-#: agg-as-options.php:156
-msgid "Hide admin bar (and profile)"
-msgstr "Esconder a barra de administrador (e o perfil)"
-
 #: agg-as-options.php:157
-msgid "From non-admin users"
-msgstr "De utilizadores comuns"
+msgid "Disable automatic updates"
+msgstr "Desativar atualizações automáticas"
 
-#: agg-as-options.php:162
-msgid "Show all settings"
-msgstr "Mostrar todas as opções"
-
-#: agg-as-options.php:163
-msgid "On the settings menu"
-msgstr "No menu de opções"
+#: agg-as-options.php:158
+msgid "Core, plugins, themes and translations"
+msgstr "Core, plugins, temas e traduções"
 
 #: agg-as-options.php:163
-msgid "Preview"
-msgstr "Previsualizar"
-
-#: agg-as-options.php:168
 msgid "Disable search feature"
 msgstr "Desativar recurso de pesquisa"
 
-#: agg-as-options.php:169
+#: agg-as-options.php:164
 msgid "Redirect all search to page not found"
 msgstr "Redireciona todas as pesquisas para uma página não encontrada"
 
-#: agg-as-options.php:174
+#: agg-as-options.php:169
 msgid "Disable RSS feeds"
 msgstr "Desativar feeds RSS"
 
-#: agg-as-options.php:175
+#: agg-as-options.php:170
 msgid "Redirect to site home"
 msgstr "Redireciona para a página inicial do site"
 
-#: agg-as-options.php:180
+#: agg-as-options.php:175
+msgid "Disable JPEG compression"
+msgstr "Desativar compressão JPEG"
+
+#: agg-as-options.php:176
+msgid "Keep original image size"
+msgstr "Mantenha o tamanho original da imagem"
+
+#: agg-as-options.php:181
 msgid "Enable shortcodes in HTML widgets"
 msgstr "Ativar shortcodes em widgets de HTML"
 
-#: agg-as-options.php:181
+#: agg-as-options.php:182
 msgid "Activate in custom html widgets"
 msgstr "Ativar em widgets de HTML personalizado"
 
-#: agg-as-options.php:196
+#: agg-as-options.php:192
+msgid "Hide 'Thank you for creating with WP'"
+msgstr "Esconder 'Obrigado por criar com o WP'"
+
+#: agg-as-options.php:193
+msgid "From the admin footer"
+msgstr "Do rodapé do administrador"
+
+#: agg-as-options.php:198
+msgid "Hide admin bar (and profile)"
+msgstr "Esconder a barra de administrador (e o perfil)"
+
+#: agg-as-options.php:199
+msgid "From non-admin users"
+msgstr "De utilizadores comuns"
+
+#: agg-as-options.php:204
+msgid "Show all settings"
+msgstr "Mostrar todas as opções"
+
+#: agg-as-options.php:205
+msgid "On the settings menu"
+msgstr "No menu de opções"
+
+#: agg-as-options.php:205
+msgid "Preview"
+msgstr "Previsualizar"
+
+#: agg-as-options.php:210
+msgid "Include post/page ID's"
+msgstr "Incluir IDs de posts / páginas"
+
+#: agg-as-options.php:211
+msgid "In admin tables"
+msgstr "Nas tabelas de administração"
+
+#: agg-as-options.php:223
 msgid "Works better together with custom errors message"
 msgstr "Funciona melhor junto com mensagem de erros personalizada"
 
-#: agg-as-options.php:201
+#: agg-as-options.php:228
 msgid "Disable login by email"
 msgstr "Desativar login por e-mail"
 
-#: agg-as-options.php:202
+#: agg-as-options.php:229
 msgid "Username only"
 msgstr "Apenas nome de utilizador"
 
-#: agg-as-options.php:207
+#: agg-as-options.php:234
 msgid "Custom errors message"
 msgstr "Mensagem de erros personalizada"
 
-#: agg-as-options.php:208
+#: agg-as-options.php:235
 msgid "Something is wrong!"
 msgstr "Algo está errado!"
 
-#: agg-as-options.php:208
+#: agg-as-options.php:235
 msgid "Make your login a bit more secure"
 msgstr "Torne o seu login um pouco mais seguro"
 
-#: agg-as-options.php:213
+#: agg-as-options.php:240
 msgid "Set login page style"
 msgstr "Definir estilo da página de login"
 
-#: agg-as-options.php:216
+#: agg-as-options.php:243
 msgid "Choose theme"
 msgstr "Selecione um tema"
 
-#: agg-as-options.php:224
+#: agg-as-options.php:251
 msgid "Theme"
 msgstr "Tema"
 
-#: agg-as-options.php:229
+#: agg-as-options.php:256
 msgid "Replace WordPress logo"
 msgstr "Substituir o logo do WordPress"
 
-#: agg-as-options.php:231
+#: agg-as-options.php:258
 msgid "With site custom logo and site home link"
 msgstr "Pelo logo do site com ligação à página inicial"
 
-#: agg-as-options.php:233
+#: agg-as-options.php:260
 msgid "No custom logo was found but the WP logo was removed"
 msgstr "Nenhum logo personalizado foi encontrado mas o logo WP foi removido"
 
-#: agg-as-options.php:235
+#: agg-as-options.php:262
 msgid "No custom logo was found but the WP logo can be removed"
 msgstr ""
 "Nenhum logo personalizado foi encontrado mas o logo WP pode ser removido"
 
-#: agg-as-options.php:241
+#: agg-as-options.php:268
 msgid "Replace WordPress title"
 msgstr "Substituir o título do WordPress"
 
-#: agg-as-options.php:242
+#: agg-as-options.php:269
 msgid "Remove 'WordPress' expression"
 msgstr "Remove a expressão 'WordPress' "
 
-#: agg-as-options.php:247
+#: agg-as-options.php:274
 msgid "Hide navigation links"
 msgstr "Ocultar os links de navegação"
 
-#: agg-as-options.php:248
+#: agg-as-options.php:275
 msgid "Remove 'Register | Lost your password?' links"
 msgstr "Remove os links 'Registar | Esqueceu-se da senha?'"
 
-#: agg-as-options.php:253
+#: agg-as-options.php:280
 msgid "Hide back to home link"
 msgstr "Ocultar o link de voltar ao início"
 
-#: agg-as-options.php:254
+#: agg-as-options.php:281
 msgid "Remove '← Back to Home' link"
 msgstr "Remove o link '← Voltar ao Início' "
 
-#: agg-as-options.php:259
+#: agg-as-options.php:286
 msgid "Hide privacy policy link"
 msgstr "Ocultar o link da política de privacidade"
 
-#: agg-as-options.php:271
+#: agg-as-options.php:297
 msgid "Reject malicious requests"
 msgstr "Rejeitar solicitações maliciosas"
 
-#: agg-as-options.php:272
+#: agg-as-options.php:298
 msgid "Block suspicious URL requests"
 msgstr "Bloquear solicitações de URL suspeitas"
 
-#: agg-as-options.php:276
+#: agg-as-options.php:303
+msgid "Remove WordPress version"
+msgstr "Remover versão do WordPress"
+
+#: agg-as-options.php:304
+msgid "From the html head source"
+msgstr "Do cabeçalho de html na fonte"
+
+#: agg-as-options.php:309
 msgid "Disable XML-RPC"
 msgstr "Desativar XML-RPC"
 
-#: agg-as-options.php:277
+#: agg-as-options.php:310
 msgid "Block weblog clients, mobile app, IFTTT, etc"
 msgstr "Bloquear clientes de weblog, aplicativo móvel, IFTTT, etc."
 
-#: agg-as-options.php:281
+#: agg-as-options.php:315
 msgid "Disable the file editor"
 msgstr "Desativar o editor de ficheiros"
 
-#: agg-as-options.php:282
+#: agg-as-options.php:316
 msgid "For both themes and plugins (admin menu)"
 msgstr "Para temas e plugins (menu de administração)"
+
+#: agg-as-options.php:329
+msgid ""
+"Emoticons and emojis will continue to work in browsers that have integrated "
+"support for them. This option simply removes the additional JavaScript file "
+"that is used to add support for emojis in older browsers."
+msgstr ""
+"Emoticons e emojis continuarão a funcionar em navegadores que têm suporte "
+"integrado para eles. Esta opção simplesmente remove o arquivo JavaScript "
+"adicional que é usado para adicionar suporte para emojis em navegadores mais "
+"antigos."
+
+#: agg-as-options.php:334
+msgid "Disable emoji support"
+msgstr "Desativar suporte para emoji"
+
+#: agg-as-options.php:335
+msgid "From all content and prevent DNS lookup from TinyMCE editor"
+msgstr "De todo o conteúdo e impedir a pesquisa de DNS do editor TinyMCE"
+
+#: agg-as-options.php:340
+msgid "Disable embeds"
+msgstr "Desativar embeds"
+
+#: agg-as-options.php:341
+msgid "Deactivate easily embed videos, images, tweets, etc."
+msgstr "Desativar incorporar facilmente vídeos, imagens, tweets, etc."
 
 #. Name of the plugin
 msgid "Aggregator Advanced Settings"
 msgstr "Aggregator Advanced Settings"
 
 #. Description of the plugin
-msgid ""
-"WordPress Extra Settings: hide admin bar from non-admin users, set login "
-"page style and options, remove WordPress references in the frontend, etc."
+msgid "WordPress Extra Settings: General, Login, Security, Performance, etc"
 msgstr ""
-"Configurações extra do WordPress: ocultar a barra de administrador de "
-"utilizadores comuns, definir o estilo e as opções da página de login, "
-"remover as referências ao WordPress no frontend, etc."
+"Configurações extra do WordPress: Geral, Login, Segurança, Desempenho, etc."
 
 #. URI of the plugin
 msgid "https://github.com/jcmello2/aggregator-advanced-settings"

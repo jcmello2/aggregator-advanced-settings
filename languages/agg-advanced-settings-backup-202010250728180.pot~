@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Aggregator Advanced Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 07:28+0000\n"
+"POT-Creation-Date: 2020-10-25 07:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -140,7 +140,7 @@ msgid "Disable JPEG compression"
 msgstr ""
 
 #: agg-as-options.php:176
-msgid "Keep original image size"
+msgid "Keep original file size"
 msgstr ""
 
 #: agg-as-options.php:181
@@ -180,11 +180,11 @@ msgid "Preview"
 msgstr ""
 
 #: agg-as-options.php:210
-msgid "Include post/page ID's"
+msgid "Include post/page ID's)"
 msgstr ""
 
 #: agg-as-options.php:211
-msgid "In admin tables"
+msgid "In admin table"
 msgstr ""
 
 #: agg-as-options.php:223
