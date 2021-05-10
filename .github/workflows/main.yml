@@ -1,7 +1,32 @@
-- name: WordPress Plugin Deploy
-  # You may pin to the exact commit or the version.
-  # uses: 10up/action-wordpress-plugin-deploy@0dc3f76f710b55cd07aa546a77bc103a0f1f2f7a
-  uses: 10up/action-wordpress-plugin-deploy@1.2.0
-  with:
-    # Generate package zip file?
-    generate-zip: # optional
+name: Deploy to WordPress.org
+on:
+  release:
+    types: [published]
+jobs:
+  tag:
+    name: New release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build
+      run: |
+        npm install
+        npm run build
+    - name: WordPress Plugin Deploy
+      id: deploy
+      uses: 10up/action-wordpress-plugin-deploy@stable
+      with:
+        generate-zip: true
+      env:
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{github.workspace}}/${{ github.event.repository.name }}.zip
+        asset_name: ${{ github.event.repository.name }}.zip
+        asset_content_type: application/zip
