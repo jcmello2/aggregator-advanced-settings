@@ -43,7 +43,8 @@ function agg_as_options() {
         array ('name' => 'agg_hide_creating', 'value' => 0),
         array ('name' => 'agg_hide_admin_bar', 'value' => 0),
         array ('name' => 'agg_show_all_settings', 'value' => 0),
-        array ('name' => 'agg_include_ids', 'value' => 0)
+        array ('name' => 'agg_include_ids', 'value' => 0),
+        array ('name' => 'agg_dismiss_admin_notices', 'value' => 0)
         );
     } else if ($tab == 'login') {  
       $opt = array (
@@ -190,7 +191,7 @@ $i = -1;
 <table class="form-table" role="presentation">
 <!-- option: Hide 'Thank you for creating with WP' -->
 <tr>
-<th scope="row"><i class="fab fa-wordpress-simple" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<th style="white-space: nowrap;" scope="row"><i class="fab fa-wordpress-simple" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
 <label for="<?php echo $opt[+$i]['name']; ?>"><?php _e("Hide 'Thank you for creating with WP'", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("From the admin footer", 'agg-advanced-settings' ); ?></td>
 </tr>
@@ -212,6 +213,13 @@ $i = -1;
 <label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Include post/page ID's", 'agg-advanced-settings' ); ?></label></th>
 <td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("In admin tables", 'agg-advanced-settings' ); ?></td>
 </tr>
+<!-- option: Dismiss admin notices -->
+<tr>
+<th scope="row"><i class="fas fa-times-circle" style="color:<?php echo $opt[++$i]['value'] == 1 ? '#000000' : '#808080' ; ?>;"></i>
+<label for="<?php echo $opt[$i]['name']; ?>"><?php _e("Dismiss admin notices", 'agg-advanced-settings' ); ?></label></th>
+<td><input type="checkbox" name="<?php echo $opt[$i]['name']; ?>" value="1" <?php checked (1,$opt[$i]['value']); ?>> <?php _e("Hide all admin notices", 'agg-advanced-settings' ); ?></td>
+</tr>
+
 </table>
 <!-- tab login -->
     <?php break;

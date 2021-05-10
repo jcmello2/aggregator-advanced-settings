@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Aggregator Advanced Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 17:53+0000\n"
+"POT-Creation-Date: 2020-11-28 10:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,15 +15,15 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.4.0; wp-5.4.2"
 
-#: agg-as-options.php:185
+#: agg-as-options.php:184
 msgid "Activate in custom html widgets"
 msgstr ""
 
-#: agg-as-options.php:136
+#: agg-as-options.php:135
 msgid "Admin"
 msgstr ""
 
-#: agg-as-options.php:5 agg-as-options.php:121
+#: agg-as-options.php:5 agg-as-options.php:120
 msgid "Advanced Settings"
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Aggregator Advanced Settings"
 msgstr ""
 
-#: agg-advanced-settings.php:271
+#: agg-advanced-settings.php:265
 msgid "Aggregator Advanced Settings Support"
 msgstr ""
 
@@ -40,162 +40,154 @@ msgstr ""
 msgid "Aggregator Login"
 msgstr ""
 
-#: agg-advanced-settings.php:350
+#: agg-advanced-settings.php:344
 msgid "All Settings"
 msgstr ""
 
-#: agg-as-options.php:379
+#: agg-as-options.php:371
 msgid "Allow SVG files in media library"
 msgstr ""
 
-#: agg-as-options.php:308
+#: agg-as-options.php:300
 msgid "Block suspicious URL requests"
 msgstr ""
 
-#: agg-as-options.php:320
+#: agg-as-options.php:312
 msgid "Block weblog clients, mobile app, IFTTT, etc"
 msgstr ""
 
-#: agg-as-options.php:385
+#: agg-as-options.php:377
 msgid "Change default add media settings"
 msgstr ""
 
-#: agg-advanced-settings.php:234 agg-advanced-settings.php:239
+#: agg-advanced-settings.php:228 agg-advanced-settings.php:233
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: agg-as-options.php:253
+#: agg-as-options.php:245
 msgid "Choose theme"
 msgstr ""
 
-#: agg-as-options.php:167
+#: agg-as-options.php:166
 msgid "Core, plugins, themes and translations"
 msgstr ""
 
-#: agg-as-options.php:244
+#: agg-as-options.php:236
 msgid "Custom errors message"
 msgstr ""
 
-#: agg-as-options.php:363
+#: agg-as-options.php:355
 msgid "Deactivate easily embed videos, images, tweets, etc."
 msgstr ""
 
-#: agg-as-options.php:166
+#: agg-as-options.php:165
 msgid "Disable automatic updates"
 msgstr ""
 
-#: agg-as-options.php:362
+#: agg-as-options.php:354
 msgid "Disable embeds"
 msgstr ""
 
-#: agg-as-options.php:356
+#: agg-as-options.php:348
 msgid "Disable emoji support"
 msgstr ""
 
-#: agg-as-options.php:373
+#: agg-as-options.php:365
 msgid "Disable JPEG compression"
 msgstr ""
 
-#: agg-as-options.php:337
+#: agg-as-options.php:329
 msgid "Disable links from user comments"
 msgstr ""
 
-#: agg-as-options.php:238
+#: agg-as-options.php:230
 msgid "Disable login by email"
 msgstr ""
 
-#: agg-as-options.php:178
+#: agg-as-options.php:177
 msgid "Disable RSS feeds"
 msgstr ""
 
-#: agg-as-options.php:172
+#: agg-as-options.php:171
 msgid "Disable search feature"
 msgstr ""
 
-#: agg-as-options.php:325
+#: agg-as-options.php:317
 msgid "Disable the file editor"
 msgstr ""
 
-#: agg-as-options.php:319
+#: agg-as-options.php:311
 msgid "Disable XML-RPC"
-msgstr ""
-
-#: agg-as-options.php:219
-msgid "Dismiss admin notices"
 msgstr ""
 
 #: agg-as-widget-meta.php:116
 msgid "Display privacy policy link"
 msgstr ""
 
-#: agg-as-options.php:351
+#: agg-as-options.php:343
 msgid ""
 "Emoticons and emojis will continue to work in browsers that have integrated "
 "support for them. This option simply removes the additional JavaScript file "
 "that is used to add support for emojis in older browsers."
 msgstr ""
 
-#: agg-as-options.php:184
+#: agg-as-options.php:183
 msgid "Enable shortcodes in HTML widgets"
 msgstr ""
 
-#: agg-as-options.php:326
+#: agg-as-options.php:318
 msgid "For both themes and plugins (admin menu)"
 msgstr ""
 
-#: agg-as-options.php:357
+#: agg-as-options.php:349
 msgid "From all content and prevent DNS lookup from TinyMCE editor"
 msgstr ""
 
-#: agg-as-options.php:202
+#: agg-as-options.php:201
 msgid "From non-admin users"
 msgstr ""
 
-#: agg-as-options.php:196
+#: agg-as-options.php:195
 msgid "From the admin footer"
 msgstr ""
 
-#: agg-as-options.php:161 agg-as-options.php:297
+#: agg-as-options.php:160 agg-as-options.php:289
 msgid "From the footer"
 msgstr ""
 
-#: agg-as-options.php:314
+#: agg-as-options.php:306
 msgid "From the html head source"
 msgstr ""
 
-#: agg-as-options.php:135
+#: agg-as-options.php:134
 msgid "General"
 msgstr ""
 
-#: agg-advanced-settings.php:276
+#: agg-advanced-settings.php:270
 msgid "here"
 msgstr ""
 
-#: agg-as-options.php:195
+#: agg-as-options.php:194
 msgid "Hide 'Thank you for creating with WP'"
 msgstr ""
 
-#: agg-as-options.php:201
+#: agg-as-options.php:200
 msgid "Hide admin bar (and profile)"
 msgstr ""
 
-#: agg-as-options.php:220
-msgid "Hide all admin notices"
-msgstr ""
-
-#: agg-as-options.php:290
+#: agg-as-options.php:282
 msgid "Hide back to home link"
 msgstr ""
 
-#: agg-as-options.php:284
+#: agg-as-options.php:276
 msgid "Hide navigation links"
 msgstr ""
 
-#: agg-as-options.php:296
+#: agg-as-options.php:288
 msgid "Hide privacy policy link"
 msgstr ""
 
-#: agg-as-options.php:331
+#: agg-as-options.php:323
 msgid "HTTPS with Non-Secure Media"
 msgstr ""
 
@@ -203,33 +195,33 @@ msgstr ""
 msgid "https://wordpress.org/plugins/aggregator-advanced-settings"
 msgstr ""
 
-#: agg-as-options.php:214
+#: agg-as-options.php:213
 msgid "In admin tables"
 msgstr ""
 
-#: agg-as-options.php:213
+#: agg-as-options.php:212
 msgid "Include post/page ID's"
 msgstr ""
 
-#: agg-as-options.php:154
+#: agg-as-options.php:153
 msgid ""
 "It might not work depending on your site theme. If it's not working, please "
 "report to our plugin support on your Dashboard"
 msgstr ""
 
-#: agg-as-options.php:374
+#: agg-as-options.php:366
 msgid "Keep original image size"
 msgstr ""
 
-#: agg-as-options.php:137
+#: agg-as-options.php:136
 msgid "Login"
 msgstr ""
 
-#: agg-as-options.php:245
+#: agg-as-options.php:237
 msgid "Make your login a bit more secure"
 msgstr ""
 
-#: agg-as-options.php:140
+#: agg-as-options.php:139
 msgid "Media"
 msgstr ""
 
@@ -237,7 +229,7 @@ msgstr ""
 msgid "Miguel Mello"
 msgstr ""
 
-#: agg-as-notice-handling.php:18 agg-advanced-settings.php:254
+#: agg-advanced-settings.php:248 agg-as-notice-handling.php:18
 msgid "Missing options? Please send suggestions to"
 msgstr ""
 
@@ -245,31 +237,31 @@ msgstr ""
 msgid "New title"
 msgstr ""
 
-#: agg-as-options.php:272
+#: agg-as-options.php:264
 msgid "No custom logo was found but the WP logo can be removed"
 msgstr ""
 
-#: agg-as-options.php:270
+#: agg-as-options.php:262
 msgid "No custom logo was found but the WP logo was removed"
 msgstr ""
 
-#: agg-as-options.php:208
+#: agg-as-options.php:207
 msgid "On the settings menu"
 msgstr ""
 
-#: agg-as-options.php:139
+#: agg-as-options.php:138
 msgid "Performance"
 msgstr ""
 
-#: agg-as-notice-handling.php:19 agg-advanced-settings.php:254
+#: agg-advanced-settings.php:248 agg-as-notice-handling.php:19
 msgid "Plugin Author"
 msgstr ""
 
-#: agg-as-options.php:338
+#: agg-as-options.php:330
 msgid "Prevents spamming, links in comments stay as plain text on the page."
 msgstr ""
 
-#: agg-as-options.php:208
+#: agg-as-options.php:207
 msgid "Preview"
 msgstr ""
 
@@ -277,11 +269,11 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: agg-as-options.php:173
+#: agg-as-options.php:172
 msgid "Redirect all search to page not found"
 msgstr ""
 
-#: agg-as-options.php:179
+#: agg-as-options.php:178
 msgid "Redirect to site home"
 msgstr ""
 
@@ -289,85 +281,85 @@ msgstr ""
 msgid "Register, Login, Logout"
 msgstr ""
 
-#: agg-as-options.php:307
+#: agg-as-options.php:299
 msgid "Reject malicious requests"
 msgstr ""
 
-#: agg-as-options.php:285
+#: agg-as-options.php:277
 msgid "Remove 'Register | Lost your password?' links"
 msgstr ""
 
-#: agg-as-options.php:279
+#: agg-as-options.php:271
 msgid "Remove 'WordPress' expression"
 msgstr ""
 
-#: agg-as-options.php:291
+#: agg-as-options.php:283
 msgid "Remove '← Back to Home' link"
 msgstr ""
 
-#: agg-as-options.php:313
+#: agg-as-options.php:305
 msgid "Remove WordPress version"
 msgstr ""
 
-#: agg-as-options.php:332
+#: agg-as-options.php:324
 msgid ""
 "Removes the message that some items on the page aren’t delivered securely"
 msgstr ""
 
-#: agg-as-options.php:266
+#: agg-as-options.php:258
 msgid "Replace WordPress logo"
 msgstr ""
 
-#: agg-as-options.php:278
+#: agg-as-options.php:270
 msgid "Replace WordPress title"
 msgstr ""
 
-#: agg-as-options.php:138
+#: agg-as-options.php:137
 msgid "Security"
 msgstr ""
 
-#: agg-as-options.php:250
+#: agg-as-options.php:242
 msgid "Set login page style"
 msgstr ""
 
-#: agg-advanced-settings.php:228
+#: agg-advanced-settings.php:222
 msgid "Settings"
 msgstr ""
 
-#: agg-as-options.php:112
+#: agg-as-options.php:111
 msgid "settings saved."
 msgstr ""
 
-#: agg-as-options.php:207
+#: agg-as-options.php:206
 msgid "Show all settings"
 msgstr ""
 
-#: agg-as-options.php:245
+#: agg-as-options.php:237
 msgid "Something is wrong!"
 msgstr ""
 
-#: agg-as-options.php:261
+#: agg-as-options.php:253
 msgid "Theme"
 msgstr ""
 
-#: agg-as-options.php:380
+#: agg-as-options.php:372
 msgid "Through uploader"
 msgstr ""
 
-#: agg-as-options.php:159
+#: agg-as-options.php:158
 msgid "Try to hide 'Powered by WordPress'"
 msgstr ""
 
-#: agg-as-options.php:239
+#: agg-as-options.php:231
 msgid "Username only"
 msgstr ""
 
-#: agg-advanced-settings.php:276
+#: agg-advanced-settings.php:270
 msgid ""
 "Welcome to Aggregator Advanced Settings. Need help? Contact the developer"
 msgstr ""
 
-#: agg-as-options.php:268
+#: agg-as-options.php:260
 msgid "With site custom logo and site home link"
 msgstr ""
 
@@ -375,10 +367,10 @@ msgstr ""
 msgid "WordPress Extra Settings: General, Login, Security, Performance, etc"
 msgstr ""
 
-#: agg-as-options.php:233
+#: agg-as-options.php:225
 msgid "Works better together with custom errors message"
 msgstr ""
 
-#: agg-as-options.php:386
+#: agg-as-options.php:378
 msgid "‘align center’, ‘link type none’ and ‘default size full’"
 msgstr ""

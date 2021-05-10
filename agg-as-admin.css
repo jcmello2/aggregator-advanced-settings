@@ -6,33 +6,31 @@
 }
 
 /* Tooltip text */
-.agg-tooltip .agg-tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  top: 125%;
-  left: 50%;
-  margin-left: -10px;
-
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+    .agg-tooltip .agg-tooltiptext {
+        visibility: hidden;
+        /*width: 200px;*/
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 5px;
+        border-radius: 6px;
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        margin-left: -10px;
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
 
 /* Tooltip arrow */
 .agg-tooltip .agg-tooltiptext:after {
   content: " ";
   position: absolute;
   bottom: 100%;  /* At the top of the tooltip */
-  left: 50%;
+  left: 10%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
@@ -43,4 +41,9 @@
 .agg-tooltip:hover .agg-tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+/* Hide 000webhost footer credits */
+img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+    display: none;
 }

@@ -3,10 +3,10 @@
 Plugin Name: Aggregator Advanced Settings
 Plugin URI: https://wordpress.org/plugins/aggregator-advanced-settings
 Description: WordPress Extra Settings: General, Login, Security, Performance, etc
-Version:     1.1.9
+Version:     1.2.0
 Author:      Miguel Mello
 Requires at least: 5.3.2
-Tested up to: 5.5.3
+Tested up to: 5.7.1
 License:     GPL2
 Text Domain: agg-advanced-settings
 Domain Path: /languages
@@ -39,7 +39,7 @@ class Agg_Advanced_Settings {
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		}
 		
-		// Option Disable automatic updates
+		// Option disable automatic updates
 		if (get_option( 'agg_disable_auto_updates' ) == 1) {
 			add_filter( 'automatic_updater_disabled', '__return_true' );
 			// add_filter( 'auto_update_core', '__return_false' );
@@ -48,14 +48,14 @@ class Agg_Advanced_Settings {
 			add_filter( 'auto_update_translation', '__return_false' );
 		}
 		
-		// Option Diasable search feature
+		// Option diasable search feature
 		if (get_option( 'agg_disable_search' ) == 1) {
 			add_action( 'parse_query', array( $this, 'filter_query' ) );
 			add_filter( 'get_search_form', array( $this, 'filter_search' ) );
 			add_action( 'widgets_init', array( $this, 'remove_search_widget' ) );
 		}
 		
-		// Option Disable RSS feeds
+		// Option disable RSS feeds
 		if (get_option( 'agg_disable_rss_feeds' ) == 1) {
 			add_action( 'do_feed', array( $this, 'disable_feed' ), 1);
 			add_action( 'do_feed_rdf', array( $this, 'disable_feed' ), 1);
@@ -68,29 +68,29 @@ class Agg_Advanced_Settings {
 			remove_action( 'wp_head', array( $this, 'feed_links' ), 2 );
 		}
 		
-		// Enable shortcodes in widgets
+		// Option enable shortcodes in widgets
 		if (get_option( 'agg_enable_shortcode_widget' ) == 1) {
 			add_filter( 'widget_text', 'shortcode_unautop' );
 			add_filter( 'widget_text', 'do_shortcode' );
 		}
 		
-		// Option Hide "Thank you for creating with WordPress" 
+		// Option hide "Thank you for creating with WordPress" 
 		if (get_option( 'agg_hide_creating' ) == 1) {
 			add_filter( 'admin_footer_text', array( $this, 'remove_footer_admin' ) );
 		}
 		
-		// Option Hide admin bar from non-admin users
+		// Option hide admin bar from non-admin users
 		if (get_option( 'agg_hide_admin_bar' ) == 1) {
 			add_action( 'init', array( $this, 'no_admin_init' ), 0 );
 			add_action( 'after_setup_theme', array( $this, 'remove_admin_bar' ) );
 		}    
 		
-		// Option Show all settings
+		// Option show all settings
 		if (get_option( 'agg_show_all_settings' ) == 1) {
 			add_action('admin_menu', array( $this, 'show_all_settings' ) );
 		}
 		
-		// Option Include post/page ID's in admin table
+		// Option include post/page ID's in admin table
 		if (get_option( 'agg_include_ids' ) == 1) {
 			add_filter( 'manage_posts_columns', array( $this, 'posts_columns_id' ), 5);
 			add_action( 'manage_posts_custom_column', array( $this, 'posts_custom_id_columns') , 5, 2);
@@ -105,73 +105,79 @@ class Agg_Advanced_Settings {
 			}
 		}
 		
-		// Disable login by email
+		// Option disable admin notices
+		if (get_option( 'agg_dismiss_admin_notices' ) == 1) {
+			add_action('admin_enqueue_scripts', array( $this, 'admin_theme_style' ) );
+			add_action('login_enqueue_scripts', array( $this, 'admin_theme_style' ) );
+		}
+
+		// Option disable login by email
 		if (get_option( 'agg_disable_email_login' ) == 1) {
 			remove_filter( 'authenticate', 'wp_authenticate_email_password', 20);
 		}
 				
-		// Option Custom login errors message
+		// Option custom login errors message
 		if (get_option( 'agg_custom_errors_message' ) !== '') {
 			add_filter( 'login_errors', array( $this, 'custom_login_errors' ) );
 		}
 		
-		// Option Set login style
+		// Option set login style
 		if (get_option( 'agg_set_login_style' ) !== '') {
 			add_action( 'login_enqueue_scripts', array( $this, 'set_login_stylesheet' ) );
 		}
 		
-		// Option Show custom logo in login
+		// Option show custom logo in login
 		if (get_option( 'agg_show_site_logo' ) == 1) {
 			add_action( 'login_head', array( $this, 'custom_login_logo' ), 100 );
 			add_filter( 'login_headerurl', array( $this, 'custom_login_url' ) );
 		}
 		
-		// Option Remove wp title in login page
+		// Option remove wp title in login page
 		if (get_option( 'agg_remove_title' ) == 1) {
 			add_filter( 'login_title', array( $this, 'custom_login_title' ) );
 		}
 		
-		// Option Hide login navigation links
+		// Option hide login navigation links
 		if (get_option( 'agg_hide_login_nav' ) == 1) {
 			add_action( 'login_head', array( $this,'hide_login_nav' ) );
 		}
 		
-		// Option Hide login back to blog link
+		// Option hide login back to blog link
 		if (get_option( 'agg_hide_login_back' ) == 1) {
 			add_action( 'login_head', array( $this,'hide_login_back' ) );
 		}    
 		
-		// Option Hide login privacy policy page link 
+		// Option hide login privacy policy page link 
 		if (get_option( 'agg_hide_login_privacy' ) == 1) {
 			add_action( 'login_head', array( $this,'hide_login_privacy' ) );
 		}
 		
-		// Reject malicious URL requests 
+		// Option reject malicious URL requests 
 		if (get_option( 'agg_reject_malicious_requests' ) == 1) {
 			add_action( 'init', array( $this, 'reject_malicious_requests' ) );
 		}
 		
-		// Option Remove WordPress version number 
+		// Option remove WordPress version number 
 		if (get_option( 'agg_remove_version' ) == 1) {
 			add_filter( 'the_generator', array( $this, 'remove_version' ) );
 		}
 
-		// Option Disable XML-RPC 
+		// Option disable XML-RPC 
 		if (get_option( 'agg_disable_xml_rpc' ) == 1) {
 			add_filter( 'xmlrpc_enabled', '__return_false' );
 		}
 		
-		// Disable file editor 
+		// Option disable file editor 
 		if (get_option( 'agg_disable_file_editor' ) == 1) {
 			add_action( 'init', array( $this, 'disable_file_editor' ) );	
 		}
 		
-		// HTTPS with Non-Secure Media 
+		// Option HTTPS with Non-Secure Media 
 		if (get_option( 'agg_https_with_Non-Secure_Media' ) == 1) {
 			add_action( 'init', array( $this, 'nocdn_on_ssl_page' ) );	
 		}
 		
-		// Disable links from comments
+		// Option disable links from comments
 		if (get_option( 'agg_disable_links_from_comments' ) == 1) {
 			remove_filter('comment_text', 'make_clickable', 9);
 		}
@@ -241,11 +247,11 @@ class Agg_Advanced_Settings {
 		return self::$_instance;
 	}
 	
-	// Show admin notices
+	// Show agg admin notice
 	public function admin_notice() {
 		global $current_screen;
 		if ( $current_screen->parent_base == 'options-general' ) {
-			echo '<div class="notice notice-info is-dismissible"><p>' . __("Missing options? Please send suggestions to",'agg-advanced-settings') . ' <a href="mailto:migu.mello@gmail.com?subject=AAS%20plugin%20suggestion">' . __("Plugin Author",'agg-advanced-settings') . '</a>.</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . __("Missing options? Please send suggestions to",'agg-advanced-settings') . ' <a href="mailto:migu.mello@gmail.com?subject=AAS%20plugin%20suggestion">' . __("Plugin Author",'agg-advanced-settings') . '</a>.</p></div>';
 		}
 	}
 	
@@ -256,7 +262,7 @@ class Agg_Advanced_Settings {
 	
 	// Admin CSS
 	public function register_admin_styles() {
-		wp_enqueue_style( 'agg-as-admin' , plugins_url( 'aggregator-advanced-settings/agg-as-admin.css' ) );
+		wp_enqueue_style( 'agg-as-admin' , plugins_url( 'agg-advanced-settings/agg-as-admin.css' ) );
 	}
 	
 	// Dashboard help panel
@@ -272,7 +278,7 @@ class Agg_Advanced_Settings {
 	
 	// Hide "Powered by WordPress"
 	public function register_plugin_styles() {
-		wp_register_style( 'agg-advanced-settings', plugins_url( 'aggregator-advanced-settings/agg-advanced-settings.css' ) );
+		wp_register_style( 'agg-advanced-settings', plugins_url( 'agg-advanced-settings/agg-advanced-settings.css' ) );
 		wp_enqueue_style( 'agg-advanced-settings' );
 	}
 	
@@ -357,6 +363,13 @@ class Agg_Advanced_Settings {
 	    }
 	}
 	
+	// Disable admin notices
+	public function admin_theme_style() {
+		if (current_user_can( 'manage_options' )) {
+			echo '<style>.update-nag, .updated, .error, .is-dismissible { display: none !important; }</style>';
+		}
+	}
+
 	// Custom login errors message
 	public function custom_login_errors() {
 		return get_option('agg_custom_errors_message');    
