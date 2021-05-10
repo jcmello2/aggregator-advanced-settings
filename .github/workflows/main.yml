@@ -6,7 +6,7 @@ on:
   #  - "*"
 jobs:
   tag:
-    name: New tag
+    name: 1.2.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -19,4 +19,4 @@ jobs:
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: agg-advanced-settings # optional, remove if GitHub repo name matches SVN slug, including capitalization
+        #SLUG: agg-advanced-settings # optional, remove if GitHub repo name matches SVN slug, including capitalization
