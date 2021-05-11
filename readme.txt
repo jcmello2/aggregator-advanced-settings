@@ -3,7 +3,7 @@ Contributors: migumello
 Requires PHP: 7.2
 Requires at least: 5.3.2
 Tested up to: 5.7.1
-Stable Tag: 1.2.0
+Stable Tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,7 +56,10 @@ Go to Settings > Advanced Settings and save options.
 
 == Changelog ==
 
-= 1.2.0 = Release Date - 01 May 2021
+= 1.2.1 = Release Date - 11 May 2021
+* Github workflow - deploy automation
+
+= 1.2.0 = Release Date - 10 May 2021
 * Option 1: Try to hide powered... Bug Fix
 * Option 29: Dismiss admin notices
 

@@ -3,7 +3,7 @@
 Plugin Name: Aggregator Advanced Settings
 Plugin URI: https://wordpress.org/plugins/aggregator-advanced-settings
 Description: WordPress Extra Settings: General, Login, Security, Performance, etc
-Version:     1.2.0
+Version:     1.2.1
 Author:      Miguel Mello
 Requires at least: 5.3.2
 Tested up to: 5.7.1
@@ -262,7 +262,7 @@ class Agg_Advanced_Settings {
 	
 	// Admin CSS
 	public function register_admin_styles() {
-		wp_enqueue_style( 'agg-as-admin' , plugins_url( 'agg-advanced-settings/agg-as-admin.css' ) );
+		wp_enqueue_style( 'agg-as-admin' , plugins_url( 'aggregator-advanced-settings/agg-as-admin.css' ) );
 	}
 	
 	// Dashboard help panel
